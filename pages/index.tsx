@@ -25,6 +25,7 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
+        hello
         {
           show &&
         <span>{JSON.stringify(users[0])}</span>
