@@ -38,7 +38,10 @@ export default function Home() {
         Steven Chan
         {stevenChan}
         Ariel
-        <Ariel/>
+        {
+          show &&
+          <Ariel/>
+        }
         <button onClick = {e => setShow(!show)}>toggle</button>
       </main>
 
