@@ -4,7 +4,6 @@ import React, {useEffect, useState} from 'react'
 import firebase from '../firebase/config'
 import "firebase/firestore"
 import Ariel from "../components/Ariel"
-
 import StevenC from '../components/stevenC'
 
 export default function Home() {
