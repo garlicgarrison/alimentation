@@ -4,23 +4,43 @@ import "firebase/firestore"
 
 export default function Ariel()
 {
-    const [docData, setDocData] = useState([])
+    const [storesData, setStores] = useState([])
+    const [itemsData, setItems] = useState([])
 
     useEffect(() => {
         firebase.firestore().collection("stores").get()
         .then(snapshot => {
             snapshot.forEach(doc => {
-                setDocData([...docData, doc.data()])
+                setStores([...storesData, doc.data()])
+            })
+        })
+    }, [])
+    useEffect(() => {
+        firebase.firestore().collection("items").get()
+        .then(snapshot => {
+            snapshot.forEach(doc => {
+                setItems([...itemsData, doc.data()])
             })
         })
     }, [])
     return (
         <>
-            <span>{
-                docData.map((doc,index) => {
-                     return <span key = {index}>{JSON.stringify(doc)}</span>
-                })
-            }   </span>
+            <div>
+            {
+                <span>{
+                    storesData.map((doc,index) => {
+                    return <span key = {index}>{JSON.stringify(storesData)}</span>
+                })}
+                </span>
+            }
+            {
+                <span>{
+                    itemsData.map((doc,index) => {
+                    return <span key = {index}>{JSON.stringify(itemsData)}</span>
+                })}
+                </span>
+            }
+            </div>
         </>
     )
 }
