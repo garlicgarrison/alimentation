@@ -5,7 +5,7 @@ import firebase from '../firebase/config'
 import "firebase/firestore"
 import Ariel from "../components/Ariel"
 
-import stevenC from './stevenC'
+import stevenC from '../components/stevenC'
 
 export default function Home() {
 
@@ -38,7 +38,10 @@ export default function Home() {
         Steven Chan
         {stevenChan}
         Ariel
-        <Ariel/>
+        {
+          show &&
+          <Ariel/>
+        }
         <button onClick = {e => setShow(!show)}>toggle</button>
       </main>
 
