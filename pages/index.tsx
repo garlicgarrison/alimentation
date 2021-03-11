@@ -4,6 +4,8 @@ import React, {useEffect, useState} from 'react'
 import firebase from '../firebase/config'
 import "firebase/firestore"
 
+import stevenC from './stevenC'
+
 export default function Home() {
 
   const [users, setUsers] = useState([])
@@ -17,6 +19,8 @@ export default function Home() {
     })
   }, [])
 
+  const stevenChan = stevenC(show)
+
   return (
     <div className={styles.container}>
       <Head>
@@ -28,8 +32,9 @@ export default function Home() {
         hello
         {
           show &&
-        <span>{JSON.stringify(users[0])}</span>
+          <span>{JSON.stringify(users[0])}</span>
         }
+        {stevenChan}
         <button onClick = {e => setShow(!show)}>toggle</button>
       </main>
 
