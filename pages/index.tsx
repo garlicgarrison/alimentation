@@ -5,7 +5,7 @@ import firebase from '../firebase/config'
 import "firebase/firestore"
 import Ariel from "../components/Ariel"
 
-import stevenC from './stevenC'
+import stevenC from '../components/stevenC'
 
 export default function Home() {
 
