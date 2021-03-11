@@ -3,6 +3,7 @@ import styles from '../styles/Home.module.css'
 import React, {useEffect, useState} from 'react'
 import firebase from '../firebase/config'
 import "firebase/firestore"
+import Ariel from "../components/Ariel"
 
 import stevenC from './stevenC'
 
@@ -29,12 +30,15 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        hello
+        Steven Jang
         {
           show &&
           <span>{JSON.stringify(users[0])}</span>
         }
+        Steven Chan
         {stevenChan}
+        Ariel
+        <Ariel/>
         <button onClick = {e => setShow(!show)}>toggle</button>
       </main>
 
