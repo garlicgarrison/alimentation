@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import firebase from '../firebase/config';
 import "firebase/firestore"
 
-export default function Ariel(show)
+export default function Ariel()
 {
     const [storesData, setStores] = useState([])
     const [itemsData, setItems] = useState([])
@@ -30,14 +30,14 @@ export default function Ariel(show)
             {
                 <span>{
                     storesData.map((doc,index) => {
-                    return <span key = {index}>{show && JSON.stringify(storesData)}</span>
+                    return <span key = {index}>{JSON.stringify(storesData)}</span>
                 })}
                 </span>
             }
             {
                 <span>{
                     itemsData.map((doc,index) => {
-                    return <span key = {index}>{show && JSON.stringify(itemsData)}</span>
+                    return <span key = {index}>{JSON.stringify(itemsData)}</span>
                 })}
                 </span>
             }

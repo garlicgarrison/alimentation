@@ -5,7 +5,7 @@ import firebase from '../firebase/config'
 import "firebase/firestore"
 import Ariel from "../components/Ariel"
 import Jonathan from "../components/Jonathan"
-import stevenC from '../components/stevenC'
+import StevenC from '../components/stevenC'
 
 export default function Home() {
 
@@ -19,8 +19,6 @@ export default function Home() {
       })
     })
   }, [])
-
-  const stevenChan = stevenC(show)
 
   return (
     <div className={styles.container}>
@@ -36,7 +34,10 @@ export default function Home() {
           <span>{JSON.stringify(users[0])}</span>
         }
         Steven Chan
-        {stevenChan}
+        {
+          show &&
+          <StevenC/>
+        }
         Ariel
         {
           show &&
