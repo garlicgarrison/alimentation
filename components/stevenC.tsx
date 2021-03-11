@@ -1,11 +1,8 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
-import React, {useEffect, useState} from 'react'
-import firebase from '../firebase/config'
+import React, {useEffect, useState} from 'react';
+import firebase from '../firebase/config';
 import "firebase/firestore"
-import { delBasePath } from 'next/dist/next-server/lib/router/router'
 
-export default function stevenC(show) {
+export default function StevenC() {
   const [shoppingCart, setShoppingCart] = useState([])
   const [review, setReview] = useState([])
 
@@ -31,8 +28,19 @@ export default function stevenC(show) {
   }, [])
 
   return (<div>
-            {show && "shoppingCart"}
-            {show && <span> {JSON.stringify(shoppingCart)} </span>}
-            {show && "reviews"}
-            {show && <span>{JSON.stringify(review)}</span>}</div>)
+    {
+        <span>{
+            shoppingCart.map((doc,index) => {
+            return <span key = {index}>{JSON.stringify(shoppingCart)}</span>
+        })}
+        </span>
+    }
+    {
+        <span>{
+            review.map((doc,index) => {
+            return <span key = {index}>{JSON.stringify(review)}</span>
+        })}
+        </span>
+    }
+    </div>)
 }
