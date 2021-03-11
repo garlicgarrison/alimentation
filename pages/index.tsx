@@ -4,7 +4,7 @@ import React, {useEffect, useState} from 'react'
 import firebase from '../firebase/config'
 import "firebase/firestore"
 import Ariel from "../components/Ariel"
-
+import Jonathan from "../components/Jonathan"
 import stevenC from '../components/stevenC'
 
 export default function Home() {
@@ -41,6 +41,11 @@ export default function Home() {
         {
           show &&
           <Ariel/>
+        }
+        Jonathan 
+        {
+          show &&
+          <Jonathan/>
         }
         <button onClick = {e => setShow(!show)}>toggle</button>
       </main>
