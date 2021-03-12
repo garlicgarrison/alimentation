@@ -23,7 +23,7 @@ const Sam = () => {
     }, [])
 
     useEffect(() => {  
-        db.collection("transaction").get()
+        db.collection("transactions").get()
         .then(snapshot => {
             snapshot.forEach(doc => {
                 console.log(doc.data())
@@ -34,7 +34,9 @@ const Sam = () => {
 
     return (
         <div>
+            <h1>Transaction</h1>
             {JSON.stringify(transaction)}
+            <h1>Public Profiles</h1>
             {JSON.stringify(publicProfiles)}
         </div>
     )

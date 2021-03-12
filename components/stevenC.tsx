@@ -28,6 +28,7 @@ export default function StevenC() {
   }, [])
 
   return (<div>
+    <h1>Shopping Cart</h1>
     {
         <span>{
             shoppingCart.map((doc,index) => {
@@ -35,6 +36,7 @@ export default function StevenC() {
         })}
         </span>
     }
+    <h1>Review</h1>
     {
         <span>{
             review.map((doc,index) => {

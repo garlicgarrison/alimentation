@@ -4,14 +4,9 @@ import React, {useEffect, useState} from 'react'
 import firebase from '../firebase/config'
 import "firebase/firestore"
 import Ariel from "../components/Ariel"
-<<<<<<< Updated upstream
 import Jonathan from "../components/Jonathan"
-import StevenC from '../components/StevenC'
-=======
+import StevenC from '../components/stevenC'
 import Sam from '../components/Sam'
-
-import stevenC from './stevenC'
->>>>>>> Stashed changes
 
 export default function Home() {
 
@@ -33,33 +28,17 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
-        Steven Jang
+      <main className={styles.main} align-items={styles.left}>
         {
           show &&
-          <span>{JSON.stringify(users[0])}</span>
+          <span>
+            <h1>Users</h1>{JSON.stringify(users[0])}
+            <StevenC/>
+            <Ariel/>
+            <Jonathan/>
+            <Sam/>
+          </span>
         }
-        Steven Chan
-        {
-          show &&
-          <StevenC/>
-        }
-        Ariel
-<<<<<<< Updated upstream
-        {
-          show &&
-          <Ariel/>
-        }
-        Jonathan 
-        {
-          show &&
-          <Jonathan/>
-        }
-=======
-        <Ariel/>
-        SAMMMM
-        <Sam/>
->>>>>>> Stashed changes
         <button onClick = {e => setShow(!show)}>toggle</button>
       </main>
 

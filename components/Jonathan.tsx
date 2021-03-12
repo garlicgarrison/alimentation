@@ -25,11 +25,22 @@ export default function Jonathan()
          })
      }, [])
 
-return (
-    <div>
-    {"driver"}
-    {<span> {JSON.stringify(driver)} </span>}
-    {"customer"}
-    {<span> {JSON.stringify(customer)} </span>}
+return (<div>
+    <h1>Driver</h1>
+    {
+        <span>{
+            driver.map((doc,index) => {
+            return <span key = {index}>{JSON.stringify(driver)}</span>
+        })}
+        </span>
+    }
+    <h1>Customer</h1>
+    {
+        <span>{
+            customer.map((doc,index) => {
+            return <span key = {index}>{JSON.stringify(customer)}</span>
+        })}
+        </span>
+    }
     </div>)
 }
