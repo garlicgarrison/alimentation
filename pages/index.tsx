@@ -4,8 +4,14 @@ import React, {useEffect, useState} from 'react'
 import firebase from '../firebase/config'
 import "firebase/firestore"
 import Ariel from "../components/Ariel"
+<<<<<<< Updated upstream
 import Jonathan from "../components/Jonathan"
 import StevenC from '../components/StevenC'
+=======
+import Sam from '../components/Sam'
+
+import stevenC from './stevenC'
+>>>>>>> Stashed changes
 
 export default function Home() {
 
@@ -39,6 +45,7 @@ export default function Home() {
           <StevenC/>
         }
         Ariel
+<<<<<<< Updated upstream
         {
           show &&
           <Ariel/>
@@ -48,6 +55,11 @@ export default function Home() {
           show &&
           <Jonathan/>
         }
+=======
+        <Ariel/>
+        SAMMMM
+        <Sam/>
+>>>>>>> Stashed changes
         <button onClick = {e => setShow(!show)}>toggle</button>
       </main>
 
