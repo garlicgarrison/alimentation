@@ -28,11 +28,17 @@ export default function Ariel()
         <>
             <div>
             {
+                <h1>Store</h1>
+            }
+            {
                 <span>{
                     storesData.map((doc,index) => {
                     return <span key = {index}>{JSON.stringify(storesData)}</span>
                 })}
                 </span>
+            }
+            {
+                <h1>Item</h1>
             }
             {
                 <span>{
