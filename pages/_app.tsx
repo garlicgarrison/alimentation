@@ -1,7 +1,18 @@
 import '../styles/globals.css'
+import Head from 'next/head'
 
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+
+  const getLayout = Component.getLayout || (page => page)
+
+  return (
+    <>
+    <Head>
+      <title>Alimentation</title>
+    </Head>
+      {getLayout(<Component {...pageProps} />)}
+    </>
+  )
 }
 
 export default MyApp

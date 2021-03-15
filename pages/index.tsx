@@ -1,12 +1,10 @@
 import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import styles from '../styles/Home.module.scss'
 import React, {useEffect, useState} from 'react'
 import firebase from '../firebase/config'
 import "firebase/firestore"
-import Ariel from "../components/Ariel"
-import Jonathan from "../components/Jonathan"
-import StevenC from '../components/stevenC'
-import Sam from '../components/Sam'
+
+import Layout from '../components/layouts/Layout'
 
 export default function Home() {
 
@@ -24,22 +22,18 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Create Next App</title>
+        <title>Alimentation</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className={styles.main} align-items={styles.left}>
-        {
-          show &&
-          <span>
-            <h1>Users</h1>{JSON.stringify(users[0])}
-            <StevenC/>
-            <Ariel/>
-            <Jonathan/>
-            <Sam/>
-          </span>
-        }
-        <button onClick = {e => setShow(!show)}>toggle</button>
+        <div className = {styles.zip_input_container}>
+          <h1>Alimentation</h1>
+          <div className = {styles.input_area}>
+            <input className={styles.address_input}/>
+            <button className = {styles.nav_button}/>
+          </div>
+        </div>
       </main>
 
 
@@ -49,3 +43,5 @@ export default function Home() {
     </div>
   )
 }
+
+Home.getLayout = page => <Layout>{page}</Layout>
