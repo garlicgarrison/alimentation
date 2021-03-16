@@ -98,9 +98,42 @@
 {
   width: 80%;
   height: 40px;
+  padding: 10px;
+  outline: none;
+  border: 1px solid #1717171A;
+  border-radius: 10px;
+  &::-webkit-input-placeholder
+  {
+    opacity: 0.2;
+  }
 }
 
 .nav_button
 {
   width: 50px;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  &:hover
+  {
+    cursor: pointer;
+  }
 }
+
+.location_error
+{
+  color: red;
+  font-family: Helvetica;
+  font-size: 12px;
+  display: block;
+  margin-bottom: 15px;
+}
+
+.location_section
+{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
