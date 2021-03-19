@@ -21,10 +21,11 @@ export default function Home() {
     maximumAge: 0
   }
 
-  const successCallback = (position) => {
+  const successCallback = async (position) => {
     console.log(position)
     setLocationError(null)
     setCoordinates(position.coords)
+    let zipRes = await fetch(`http://ws.geonames.org/findNearbyPostalCodesJSON?formatted=true&lat=36&lng=-79.08`)
   }
 
   const errorCallback = error => {
@@ -44,7 +45,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main} align-items={styles.left}>
+      <main className={styles.main}>
         <div className={styles.zip_input_container}>
           <h1>Alimentation</h1>
 

@@ -8,6 +8,8 @@
     "start": "next start"
   },
   "dependencies": {
+    "babel-register": "^6.26.0",
+    "dotenv-webpack": "^7.0.2",
     "firebase": "^8.2.10",
     "next": "^10.0.7",
     "react": "17.0.1",
