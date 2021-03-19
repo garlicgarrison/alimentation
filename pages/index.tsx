@@ -17,10 +17,11 @@ export default function Home() {
 
   const locationOptions = {
     enableHighAccuracy: true,
+    timeout: 5000,
     maximumAge: 0
   }
 
-  const successCallback = position => {
+  const successCallback = (position) => {
     console.log(position)
     setLocationError(null)
     setCoordinates(position.coords)
@@ -31,9 +32,9 @@ export default function Home() {
     setLocationError(error)
   }
 
-  const getLocation = e => {
+  const getLocation = async e => {
     console.log("getlocation")
-    navigator.geolocation.getCurrentPosition(successCallback, errorCallback, locationOptions)
+    await navigator.geolocation.getCurrentPosition(successCallback, errorCallback, locationOptions)
   }
 
   return (
