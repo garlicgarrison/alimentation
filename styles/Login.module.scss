@@ -62,10 +62,10 @@
   font-size: 1.5rem;
 }
 
-.zip_input_container
+.input_container
 {
   width: 500px;
-  height: 400px;
+  height: 450px;
   background-color: white;
   border-radius: 30px;
   box-shadow: 
@@ -78,7 +78,10 @@
          0 5px 25px 0 rgba(0,0,0,.08);
        }
   padding: 50px;
-  font-family: 'Lobster';
+  h1 {
+    font-family: 'Lobster';
+    margin: 20px;
+  }
   color: $light-green;
   display: flex;
   flex-direction: column;
@@ -103,7 +106,7 @@
   width: 100%;
   height: 40px;
   padding: 10px;
-  margin: 5px 0;
+  margin: 10px 0;
   outline: none;
   border: 1px solid #1717171A;
   border-radius: 10px;
@@ -131,4 +134,11 @@
   {
     color: white;
   }
+}
+
+.login_issue
+{
+  font-family: Helvetica;
+  font-size: 12px;
+  color: #AAAAAA;
 }
