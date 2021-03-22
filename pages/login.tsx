@@ -3,6 +3,7 @@ import styles from '../styles/Login.module.scss'
 import React, { useEffect, useState } from 'react'
 import firebase from '../firebase/config'
 import "firebase/firestore"
+import Link  from 'next/link';
 
 import Layout from '../components/layouts/Layout'
 
@@ -26,9 +27,21 @@ export default function Login() {
               <p>Log in</p>
             </button>
           </div>
+
           <div className={styles.login_issue}>
-            <p>Don't hava an account? Sign up here</p>
-            <p>Forgot your password? Reset it here</p>
+            <div className={styles.issues}>
+              <p>Don't hava an account?</p>
+              <div className={styles.issue_link}>
+                <Link href={{pathname: "/signup"}}>Sign up here</Link>
+              </div>
+              
+            </div>
+            <div className={styles.issues}>
+              <p>Forgot your password?</p>
+              <div className={styles.issue_link}>
+                <Link href={{pathname: "/"}}>Reset it here</Link>
+              </div>
+            </div>
           </div>
         </div>
       </main>
