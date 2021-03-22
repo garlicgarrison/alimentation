@@ -16,17 +16,20 @@ export default function Login() {
       </Head>
 
       <main className={styles.main}>
-        <div className={styles.zip_input_container}>
+        <div className={styles.input_container}>
           <h1>Log in</h1>
 
-            <div className={styles.input_area}>
-              <input className={styles.field_input} placeholder="Username or E-mail" />
-              <input className={styles.field_input} placeholder="Password" />
-              <button className={styles.login_button}>
-                <p>Log in</p>
-              </button>
-            </div>
-
+          <div className={styles.input_area}>
+            <input className={styles.field_input} placeholder="Username or E-mail" />
+            <input className={styles.field_input} placeholder="Password" />
+            <button className={styles.login_button}>
+              <p>Log in</p>
+            </button>
+          </div>
+          <div className={styles.login_issue}>
+            <p>Don't hava an account? Sign up here</p>
+            <p>Forgot your password? Reset it here</p>
+          </div>
         </div>
       </main>
 
