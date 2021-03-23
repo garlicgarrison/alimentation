@@ -30,7 +30,7 @@ export default function Login() {
 
           <div className={styles.login_issue}>
             <div className={styles.issues}>
-              <p>Don't hava an account?</p>
+              <p>Don't have an account?</p>
               <div className={styles.issue_link}>
                 <Link href={{pathname: "/signup"}}>Sign up here</Link>
               </div>
