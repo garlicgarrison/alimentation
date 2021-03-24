@@ -5,7 +5,7 @@ import firebase from '../firebase/config'
 import "firebase/firestore"
 import Link  from 'next/link';
 import Layout from '../components/layouts/Layout'
-import { emailSignup } from '../service/auth/auth'
+import { emailSignup, facebookAuth, googleAuth } from '../service/auth/auth'
 
 
 const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
