@@ -60,8 +60,8 @@ export default function Login() {
               <div className={styles.issue_link}>
                 <Link href={{pathname: "/signup"}}>Sign up here</Link>
               </div>
-              
             </div>
+            
             <div className={styles.issues}>
               <p>Forgot your password?</p>
               <div className={styles.issue_link}>

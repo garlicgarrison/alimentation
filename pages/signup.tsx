@@ -43,7 +43,7 @@ export default function Signup() {
       <main className={styles.main}>
         <div className={styles.input_container}>
           <h1>Sign up</h1>
-
+          
           <div className={styles.input_area}>
               <form ref = {formRef}>
                 <span className = {styles.error_message}>{usernameError}</span>
