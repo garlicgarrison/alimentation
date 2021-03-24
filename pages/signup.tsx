@@ -1,11 +1,11 @@
 import Head from 'next/head'
 import styles from '../styles/Login.module.scss'
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useRef, MouseEventHandler } from 'react'
 import firebase from '../firebase/config'
 import "firebase/firestore"
 import Link  from 'next/link';
-
 import Layout from '../components/layouts/Layout'
+import { emailSignup } from '../service/auth/auth'
 
 
 const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -13,24 +13,42 @@ const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[
 export default function Signup() {
 
     const formRef = useRef(null);
-    const [loginError, setLoginError] = useState(null);
-    const [usernameError, setUsernameError] = useState(null);
-    const [passwordError, setPasswordError] = useState(null);
+    const [loginError, setLoginError] = useState<any>(null);
+    const [usernameError, setUsernameError] = useState<any>(null);
+    const [passwordError, setPasswordError] = useState<any>(null);
 
     const formHandler = (event) => {
         const { name, value } = event.target;
 
         switch (name) {
           case "username":
-            setUsernameError(re.test(value) ? "" : "Email is not valid");
+            setUsernameError(re.test(value) ? null : "Email is not valid");
             break;
           case "password":
-            setPasswordError(value.length < 6 ? "Password must be at least 6 characters" : "");
+            setPasswordError(value.length < 6 ? "Password must be at least 6 characters" : null);
             break;
           default:
             break;
         }
       };
+    
+    const handleEmailSignup = async (e: React.MouseEvent<HTMLElement>) => {
+        e.preventDefault();
+        let email = formRef.current.username.value
+        let pw = formRef.current.password.value
+        console.log(email, pw)
+        let res = await emailSignup(email, pw);
+        console.log("res", res)
+        if (res.user)
+        {
+            //get user info
+            //add user data to context provider
+        }
+        else if (res.message)
+        {
+            setLoginError(res.message)
+        }
+    }
     
 
   return (
@@ -50,10 +68,11 @@ export default function Signup() {
                 <input className={styles.field_input} placeholder="E-mail" name = "username" onChange={formHandler}/>
                 <span className = {styles.error_message}>{passwordError}</span>
                 <input className={styles.field_input} placeholder="Password" name = "password" type = "password" onChange={formHandler}/>
-                <button className={styles.login_button}>
-                <p>Sign up</p>
+                <button className={styles.login_button} onClick={handleEmailSignup} disabled={usernameError || passwordError}>
+                    Sign up
                 </button>
               </form>
+              <span className = {styles.error_message}>{loginError}</span>
           </div>
 
           <div className={styles.login_issue}>

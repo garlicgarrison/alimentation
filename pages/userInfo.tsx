@@ -7,7 +7,7 @@ import Link  from 'next/link';
 
 import Layout from '../components/layouts/Layout'
 
-export default function Signup() {
+export default function UserInfo() {
 
   return (
     <div className={styles.container}>
@@ -40,8 +40,8 @@ export default function Signup() {
 
             <div className={styles.section}>
               <p>Address</p>
-              <input className={styles.field_input} placeholder="Stree 1" />
-              <input className={styles.field_input} placeholder="Stree 2" />
+              <input className={styles.field_input} placeholder="Street 1" />
+              <input className={styles.field_input} placeholder="Street 2" />
               <div className={styles.three_in_row}>
                 <input className={styles.row_input} placeholder="City" />
                 <input className={styles.row_input} placeholder="State" />
@@ -66,4 +66,4 @@ export default function Signup() {
   )
 }
 
-Signup.getLayout = page => <Layout>{page}</Layout>
+UserInfo.getLayout = page => <Layout>{page}</Layout>

@@ -126,13 +126,13 @@
   outline: none;
   border: none;
   border-radius: 30px;
-  &:hover
+  cursor: pointer;
+  color: white;
+  padding: 15px 0;
+  &:disabled
   {
-    cursor: pointer;
-  }
-  p
-  {
-    color: white;
+    background-color: lightgrey;
+    cursor: default;
   }
 }
 
