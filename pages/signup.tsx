@@ -49,6 +49,18 @@ export default function Signup() {
             setLoginError(res.message)
         }
     }
+
+    const handleFacebookSignup = async (e : React.MouseEvent<HTMLElement>) => {
+        e.preventDefault();
+        let res = await facebookAuth();
+        console.log(res)
+    }
+
+    const handleGoogleSignup = async (e) => {
+        e.preventDefault();
+        let res = await googleAuth();
+        console.log(res)
+    }
     
 
   return (
@@ -74,6 +86,9 @@ export default function Signup() {
               </form>
               <span className = {styles.error_message}>{loginError}</span>
           </div>
+
+          <button onClick = {handleFacebookSignup}>Sign up with Facebook</button>
+          <button onClick = {handleGoogleSignup}>Sign up with Google</button>
 
           <div className={styles.login_issue}>
             <div className={styles.issues}>
