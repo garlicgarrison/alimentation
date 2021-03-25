@@ -5,6 +5,7 @@ import firebase from '../firebase/config'
 import "firebase/firestore"
 import Link  from 'next/link';
 import Layout from '../components/layouts/Layout'
+import { useRouter } from 'next/router'
 
 import { emailLogin, facebookAuth, googleAuth } from '../service/auth/auth'
 
@@ -32,7 +33,7 @@ export default function Login() {
         break;
     }
   };
-/*
+
   const handleEmailLogin = async (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     let email = formRef.current.username.value
@@ -42,14 +43,18 @@ export default function Login() {
     console.log("res", res)
     if (res.user)
     {
-        //
+        console.log("You are logged in");
+        //What to do after login
+        //Navigate to /stores
     }
     else if (res.message)
     {
-        setLoginError(res.message)
+      console.log("Login failed");  
+      setLoginError(res.message)
     }
 }
 
+/*
 const handleFacebookLogin = async (e : React.MouseEvent<HTMLElement>) => {
   e.preventDefault();
   let res = await facebookAuth();
@@ -79,7 +84,7 @@ const handleGoogleLogin = async (e) => {
               <input className={styles.field_input} placeholder="E-mail" name = "username" onChange={formHandler}/>
               <span className = {styles.error_message}>{passwordError}</span>
               <input className={styles.field_input} placeholder="Password" name = "password" type = "password" onChange={formHandler}/>
-              <button className={styles.login_button}>
+              <button className={styles.login_button} onClick={handleEmailLogin}>
                 <p>Log in</p>
               </button>
             </form>
