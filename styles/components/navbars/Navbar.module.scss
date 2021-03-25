@@ -57,3 +57,26 @@
     border-radius: 30px;
 }
 
+.right_elements_logged_in
+{
+    font-weight: 600;
+    ul {
+        margin: 0px;
+        justify-content: space-around;
+        align-items: center;
+        display: flex;
+        li {
+            padding: 0 10px;
+            transition: 0.5s;
+            max-height: 100%;
+        }
+    }
+}
+
+.avatar
+{
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+

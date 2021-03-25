@@ -185,7 +185,7 @@
 
 .signin_options
 {
-  width: 150px;
+  width: 180px;
   margin: 20px;
   background-color: white;
   font-family: Helvetica;
@@ -196,6 +196,7 @@
   cursor: pointer;
   color: $light-green;
   padding: 15px 0;
+  display: flex;
   &:disabled
   {
     background-color: lightgrey;
@@ -205,4 +206,5 @@
     background-color: $light-green;
     color: white;
   }
+  justify-content: space-evenly;
 }

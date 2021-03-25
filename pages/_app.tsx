@@ -1,5 +1,6 @@
 import '../styles/globals.css'
 import Head from 'next/head'
+import ContextProvider from '../components/state/ContextProvider'
 
 function MyApp({ Component, pageProps }) {
 
@@ -10,7 +11,10 @@ function MyApp({ Component, pageProps }) {
     <Head>
       <title>Alimentation</title>
     </Head>
+    
+    <ContextProvider>
       {getLayout(<Component {...pageProps} />)}
+    </ContextProvider>
     </>
   )
 }
