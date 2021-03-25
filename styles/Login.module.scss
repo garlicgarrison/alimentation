@@ -128,7 +128,7 @@
   border-radius: 30px;
   cursor: pointer;
   color: white;
-  padding: 15px 0;
+  padding: 0;
   &:disabled
   {
     background-color: lightgrey;
@@ -173,4 +173,36 @@
 .error_message
 {
   color: red;
+}
+
+.other_options
+{
+  border-top: 1px solid #DDDDDD;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.signin_options
+{
+  width: 150px;
+  margin: 20px;
+  background-color: white;
+  font-family: Helvetica;
+  font-weight: 500;
+  outline: none;
+  border: 2px solid $light-green;
+  border-radius: 20px;
+  cursor: pointer;
+  color: $light-green;
+  padding: 15px 0;
+  &:disabled
+  {
+    background-color: lightgrey;
+    cursor: default;
+  }
+  &:hover{
+    background-color: $light-green;
+    color: white;
+  }
 }

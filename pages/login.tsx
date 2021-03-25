@@ -4,8 +4,9 @@ import React, { useEffect, useState, useRef } from 'react'
 import firebase from '../firebase/config'
 import "firebase/firestore"
 import Link  from 'next/link';
-
 import Layout from '../components/layouts/Layout'
+
+import { emailLogin, facebookAuth, googleAuth } from '../service/auth/auth'
 
 const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -13,12 +14,13 @@ const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[
 export default function Login() {
 
   const formRef = useRef(null);
+  const [loginError, setLoginError] = useState<any>(null);
   const [usernameError, setUsernameError] = useState(null);
   const [passwordError, setPasswordError] = useState(null);
 
   const formHandler = (event) => {
     const { name, value } = event.target;
-
+    
     switch (name) {
       case "username":
         setUsernameError(re.test(value) ? "" : "Email is not valid");
@@ -30,6 +32,35 @@ export default function Login() {
         break;
     }
   };
+/*
+  const handleEmailLogin = async (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+    let email = formRef.current.username.value
+    let pw = formRef.current.password.value
+    console.log(email, pw)
+    let res = await emailLogin(email, pw);
+    console.log("res", res)
+    if (res.user)
+    {
+        //
+    }
+    else if (res.message)
+    {
+        setLoginError(res.message)
+    }
+}
+
+const handleFacebookLogin = async (e : React.MouseEvent<HTMLElement>) => {
+  e.preventDefault();
+  let res = await facebookAuth();
+  console.log(res)
+}
+
+const handleGoogleLogin = async (e) => {
+  e.preventDefault();
+  let res = await googleAuth();
+  console.log(res)
+}*/
 
   return (
     <div className={styles.container}>
@@ -52,6 +83,11 @@ export default function Login() {
                 <p>Log in</p>
               </button>
             </form>
+          </div>
+
+          <div className={styles.other_options}>
+            <button className={styles.signin_options} /*onClick = {handleFacebookLogin}*/>Log in with Facebook</button>
+            <button className={styles.signin_options} /*onClick = {handleGoogleLogin}*/>Log in with Google</button>
           </div>
 
           <div className={styles.login_issue}>
