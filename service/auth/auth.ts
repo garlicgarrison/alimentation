@@ -34,3 +34,7 @@ export const googleAuth = () => {
         return error;
     })
 }
+
+export const logout = () => {
+    return firebase.auth().signOut();
+}

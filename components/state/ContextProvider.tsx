@@ -1,5 +1,5 @@
 import React, {createContext, useContext, useMemo, useState, useEffect} from 'react';
-import firebase from "firebase/app";
+import firebase from "../../firebase/config";
 import "firebase/auth";
 import "firebase/database";
 
@@ -26,7 +26,7 @@ export default function ContextProvider({children})
 
 
     return (
-        <Context.Provider value = {{authState, setAuthState}}>
+        <Context.Provider value = {providerValue}>
             {children}
         </Context.Provider>
     )
