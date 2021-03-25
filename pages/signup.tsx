@@ -6,11 +6,14 @@ import "firebase/firestore"
 import Link  from 'next/link';
 import Layout from '../components/layouts/Layout'
 import { emailSignup, facebookAuth, googleAuth } from '../service/auth/auth'
+import {useRouter} from 'next/router'
 
 
 const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 export default function Signup() {
+
+    const router = useRouter();
 
     const formRef = useRef(null);
     const [loginError, setLoginError] = useState<any>(null);
@@ -41,8 +44,7 @@ export default function Signup() {
         console.log("res", res)
         if (res.user)
         {
-            //get user info
-            //add user data to context provider
+            router.push("/stores")
         }
         else if (res.message)
         {
@@ -55,6 +57,14 @@ export default function Signup() {
         e.preventDefault();
         let res = await googleAuth();
         console.log(res)
+        if (res.user)
+        {
+            router.push("/stores")
+        }
+        else if (res.message)
+        {
+            setLoginError(res.message)
+        }
     }
     
 

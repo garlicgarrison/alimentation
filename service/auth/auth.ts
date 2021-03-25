@@ -1,8 +1,15 @@
 import firebase from "../../firebase/config"
 import "firebase/auth"
 
-export const emailSignup = (email: string, password: string) =>  {
-    return firebase.auth().createUserWithEmailAndPassword(email, password).then(user => {
+export const emailSignup =  (email: string, password: string) =>  {
+    return firebase.auth().createUserWithEmailAndPassword(email, password).then(async (user) => {
+        let email = user.user.email;
+        let emailArr = email.split("@");
+        let newUsername = emailArr[0];
+        await firebase.auth().currentUser.updateProfile({
+            displayName: newUsername,
+            photoURL: `https://avatars.dicebear.com/api/gridy/${newUsername}.svg`
+        })
         return user;
     }).catch(error=> {
         return error;
