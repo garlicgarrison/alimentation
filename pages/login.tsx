@@ -5,7 +5,7 @@ import firebase from '../firebase/config'
 import "firebase/firestore"
 import Link  from 'next/link';
 import Layout from '../components/layouts/Layout'
-import { useRouter } from 'next/router'
+import Router from 'next/router'
 
 import { emailLogin, facebookAuth, googleAuth } from '../service/auth/auth'
 
@@ -45,7 +45,7 @@ export default function Login() {
     {
         console.log("You are logged in");
         //What to do after login
-        //Navigate to /stores
+        Router.push('/stores')
     }
     else if (res.message)
     {
