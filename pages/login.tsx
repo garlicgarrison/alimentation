@@ -54,18 +54,41 @@ export default function Login() {
     }
 }
 
-/*
+
 const handleFacebookLogin = async (e : React.MouseEvent<HTMLElement>) => {
   e.preventDefault();
   let res = await facebookAuth();
   console.log(res)
+  if (res.user)
+  {
+      console.log("You are logged in");
+      //What to do after login
+      Router.push('/stores')
+  }
+  else if (res.message)
+  {
+    console.log("Login failed");  
+    setLoginError(res.message)
+  }
 }
+
 
 const handleGoogleLogin = async (e) => {
   e.preventDefault();
   let res = await googleAuth();
   console.log(res)
-}*/
+  if (res.user)
+    {
+        console.log("You are logged in");
+        //What to do after login
+        Router.push('/stores')
+    }
+    else if (res.message)
+    {
+      console.log("Login failed");  
+      setLoginError(res.message)
+    }
+}
 
   return (
     <div className={styles.container}>
@@ -91,8 +114,8 @@ const handleGoogleLogin = async (e) => {
           </div>
 
           <div className={styles.other_options}>
-            <button className={styles.signin_options} /*onClick = {handleFacebookLogin}*/>Log in with Facebook</button>
-            <button className={styles.signin_options} /*onClick = {handleGoogleLogin}*/>Log in with Google</button>
+            <button className={styles.signin_options} onClick = {handleFacebookLogin}>Log in with Facebook</button>
+            <button className={styles.signin_options} onClick = {handleGoogleLogin}>Log in with Google</button>
           </div>
 
           <div className={styles.login_issue}>
