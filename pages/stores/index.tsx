@@ -14,7 +14,7 @@ export default function Stores()
         firebase.firestore().collection("stores").get().then(snapshot => {
             let tempStore = []
             snapshot.forEach(doc => {
-                tempStore = [...tempStore, doc.data()]
+                tempStore = [...tempStore, doc]
             })
             setStores(tempStore)
         })
@@ -26,7 +26,7 @@ export default function Stores()
             <div className = {styles.store_grids}>
                 {
                     stores.map((store, i) => {
-                        return <StoreCard store={store} key={"store"+i}/>
+                        return <StoreCard storeDoc={store} key={"store"+i}/>
                     })
                 }
             </div>
