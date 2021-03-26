@@ -1,5 +1,7 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
+import Stores from '.';
+import ItemCard from '../../components/cards/ItemCard';
 import Layout from '../../components/layouts/Layout';
 import firebase from '../../firebase/config'
 import styles from '../../styles/StoreView.module.scss'
@@ -33,12 +35,18 @@ export default function Store()
         <>
             {
                 storeData && 
-                <div className = {styles.main_container}>
+                <main className = {styles.main_container}>
                     <h1>
                         {storeData.name}
                     </h1>
-
-                </div>
+                    <div className={styles.item_grids}>
+                        {
+                            items.map((item, i) => {
+                                return <ItemCard itemDoc={item} key={"item"+i}/>
+                            })
+                        }
+                    </div>
+                </main>
             }
         </>
     )
