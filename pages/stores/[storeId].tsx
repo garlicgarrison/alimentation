@@ -5,6 +5,7 @@ import ItemCard from '../../components/cards/ItemCard';
 import Layout from '../../components/layouts/Layout';
 import firebase from '../../firebase/config'
 import styles from '../../styles/StoreView.module.scss'
+import Image from 'next/image'
 
 export default function Store()
 {
@@ -13,12 +14,18 @@ export default function Store()
 
     const [storeData, setStoreData] = useState(null)
     const [items, setItems] = useState([])
+    const [imageurl, setimageurl] = useState(null)
+    
+    const storage = firebase.storage();
 
     useEffect(()=>{
         //@ts-ignore
         firebase.firestore().collection("stores").doc(storeId).get().then(doc => {
             console.log(doc)
             setStoreData(doc.data())
+            storage.ref(`stores/${doc.data().image_url}`).getDownloadURL().then(url => {
+                setimageurl(url)
+            })
             //@ts-ignore
             firebase.firestore().collection("stores").doc(storeId).collection("items").get().then(snapshot => {
                 let tempItems = []
@@ -36,9 +43,13 @@ export default function Store()
             {
                 storeData && 
                 <main className = {styles.main_container}>
-                    <h1>
-                        {storeData.name}
-                    </h1>
+                    <div className = {styles.header_container}>
+                        <img src ={imageurl} className = {styles.store_image}/>
+                        
+                        <h1 className = {styles.store_header}>
+                            {storeData.name}
+                        </h1>
+                    </div>
                     <div className={styles.item_grids}>
                         {
                             items.map((item, i) => {

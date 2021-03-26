@@ -24,7 +24,7 @@ export default function ItemCard({itemDoc = null})
             </div>
 
             <div className = {styles.bottom_container}>
-                <h2>{item.name}</h2>
+                <h4>{item.name}</h4>
                 <span>${item.price}</span>
             </div>
         </div>
