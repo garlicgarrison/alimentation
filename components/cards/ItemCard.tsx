@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from '../../styles/components/cards/ItemCard.module.scss'
 import firebase from 'firebase/app'
 import "@firebase/storage"
+import { getItem } from '../../service/items';
 
 export default function ItemCard({itemDoc = null})
 {
@@ -9,7 +10,6 @@ export default function ItemCard({itemDoc = null})
     const [imageurl, setimageurl] = useState<string>("")
     const storage = firebase.storage();
 
-    console.log(item.images_preview_url)
 
     useEffect(() => {
         storage.ref(`items/${item.images_preview_url}`).getDownloadURL().then(url => {
