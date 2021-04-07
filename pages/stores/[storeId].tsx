@@ -69,6 +69,7 @@ export default function Store() {
     const cancelModal = (e) => {
         console.log("e", e)
         setCurrentItemImages([])
+        setIndex(0)
         setModal(false)
     }
 
