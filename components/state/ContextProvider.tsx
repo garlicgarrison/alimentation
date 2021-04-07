@@ -2,6 +2,7 @@ import React, {createContext, useContext, useMemo, useState, useEffect} from 're
 import firebase from "../../firebase/config";
 import "firebase/auth";
 import "firebase/database";
+import { getShoppingCart } from '../../service/items';
 
 export const Context = createContext(null);
 

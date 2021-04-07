@@ -101,7 +101,7 @@
     padding: 15px 0px;
     position: absolute;
     top: 65px;
-    transform: translateX(30%);
+    transform: translateX(-75%);
     background-color: white;
     border-radius: 6px;
     z-index: 220;
@@ -143,5 +143,19 @@
     justify-content: space-evenly;
     color: grey;
     font-weight: 600;
+}
+
+.shopping_cart
+{
+    width: 100px;
+    height: 100%;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    color: white;
+    background-color: $light-orange;
+    justify-content: space-evenly;
+    border: none;
+    border-radius: 20px;
 }
 

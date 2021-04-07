@@ -1,16 +1,39 @@
 import React, { useContext, useRef, useEffect, useState } from 'react';
 //@ts-ignore
 import styles from '../../styles/components/navbars/Navbar.module.scss'
-import Link  from 'next/link';
+import Link from 'next/link';
 import { Context } from '../state/ContextProvider';
-import {useRouter} from 'next/router'
+import { useRouter } from 'next/router'
 import { logout } from '../../service/auth/auth';
+import { getShoppingCart } from '../../service/items';
+import firebase from '../../firebase/config'
+import "firebase/auth"
 
+const db = firebase.firestore();
 
 export default function Navbar() {
-    const {authState, setauthState} = useContext(Context)
+    const { authState, setauthState } = useContext(Context)
     const [dropdown, setDropDown] = useState(false);
+    const [shopCart, setShopCart] = useState(null)
+    
+    useEffect(() => {
+        console.log(firebase.auth().currentUser)
+        if (authState.user)
+        {
+            db.collection("users").doc(firebase.auth().currentUser.uid).collection("customer").get().then(snapshot => {
 
+                snapshot.forEach(doc => {
+                    console.log("customer", doc)
+                    doc.ref.collection("shopping_cart").get().then(shoppingSnap => {
+                        shoppingSnap.forEach(shopDoc => {
+                            console.log(shopDoc.data())
+                            setShopCart(shopDoc);
+                        })
+                    })
+                })
+            })
+        }
+      }, [authState.user])
 
     const handleDropdown = e => {
         setDropDown(drop => {
@@ -30,7 +53,7 @@ export default function Navbar() {
                     <div className={styles.left_elements}>
                         <h1 className={styles.header}>
 
-                            <Link href={{pathname: "/"}}>
+                            <Link href={{ pathname: "/" }}>
                                 Alimentation
                             </Link>
                         </h1>
@@ -46,13 +69,13 @@ export default function Navbar() {
                         <div className={styles.right_elements}>
                             <ul>
                                 <li>
-                                    <Link href={{pathname: '/login'}}>
+                                    <Link href={{ pathname: '/login' }}>
                                         Login
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link href={{pathname: '/signup'}}>
-                                        <a className = {styles.sign_up}>
+                                    <Link href={{ pathname: '/signup' }}>
+                                        <a className={styles.sign_up}>
                                             Sign up
                                         </a>
                                     </Link>
@@ -62,35 +85,52 @@ export default function Navbar() {
                     }
 
                     {
-                        authState.loggedIn && 
+                        authState.loggedIn &&
                         <div className={styles.right_elements_logged_in}>
                             <ul>
                                 <li>
-                                    <Link href={{pathname: '/profile'}}>
+                                    <Link href={{ pathname: '/profile' }}>
                                         <a>
-                                            <img src = {authState.user.photoURL} className = {styles.avatar}/>
+                                            <img src={authState.user.photoURL} className={styles.avatar} />
                                         </a>
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link href={{pathname: '/profile'}}>
+                                    <Link href={{ pathname: '/profile' }}>
                                         <a>
-                                          {authState.user.displayName}  
+                                            {authState.user.displayName}
                                         </a>
                                     </Link>
                                 </li>
                                 <li>
-                                        <div className={styles.down_arrow_container} onClick={handleDropdown}>
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-                                                <path fill="#E9692C" d="M12 13.172l4.95-4.95 1.414 1.414L12 16 5.636 9.636 7.05 8.222z"></path>
-                                            </svg>
-                                        </div>
+                                    <div className={styles.down_arrow_container} onClick={handleDropdown}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                                            <path fill="#E9692C" d="M12 13.172l4.95-4.95 1.414 1.414L12 16 5.636 9.636 7.05 8.222z"></path>
+                                        </svg>
+                                    </div>
+                                    {
+                                        dropdown &&
+                                        <DropDown removeDropdown={removeDropdownCallback} />
+                                    }
+                                </li>
+                                <li>
+                                    <button className={styles.shopping_cart}>
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M11 9H13V6H16V4H13V1H11V4H8V6H11V9ZM7 18C5.9 18 5.01 18.9 5.01 20C5.01 21.1 5.9 22 7 22C8.1 22 9 21.1 9 20C9 18.9 8.1 18 7 18ZM17 18C15.9 18 15.01 18.9 15.01 20C15.01 21.1 15.9 22 17 22C18.1 22 19 21.1 19 20C19 18.9 18.1 18 17 18ZM7.17 14.75L7.2 14.63L8.1 13H15.55C16.3 13 16.96 12.59 17.3 11.97L21.16 4.96L19.42 4H19.41L18.31 6L15.55 11H8.53L8.4 10.73L6.16 6L5.21 4L4.27 2H1V4H3L6.6 11.59L5.25 14.04C5.09 14.32 5 14.65 5 15C5 16.1 5.9 17 7 17H19V15H7.42C7.29 15 7.17 14.89 7.17 14.75Z" fill="white" />
+                                        </svg>
+                                        Cart
+                                        {
+                                            shopCart && 
+                                            <span>
+                                                (
+                                                    {shopCart.data().items.length}
+                                                )
+                                            </span>
+                                        }
+                                    </button>
                                 </li>
                             </ul>
-                            {
-                                    dropdown &&
-                                    <DropDown removeDropdown={removeDropdownCallback} />
-                                }
+                            
                         </div>
                     }
 

@@ -1,4 +1,5 @@
 import firebase from '../firebase/config'
+import "firebase/auth"
 
 const db = firebase.firestore();
 
@@ -13,10 +14,14 @@ export const getItem = (storeId: string, itemId: string) => {
 
 
 export const getShoppingCart = (userId: string) => {
-    db.collection("users").doc(userId).collection("customer").get().then(snapshot => {
+    db.collection("users").doc(firebase.auth().currentUser.uid).collection("customer").get().then(snapshot => {
+        console.log("snapshot", snapshot)
         snapshot.forEach(doc => {
+            console.log("customer", doc)
             doc.ref.collection("shopping_cart").get().then(shoppingSnap => {
-                
+                shoppingSnap.forEach(shopDoc => {
+                    return shopDoc;
+                })
             })
         })
     })

@@ -126,6 +126,11 @@ export default function Store() {
                                             </svg>
                                         </button>
                                         {
+                                            currentItemImages.length === 0 && 
+                                            <div className = {styles.image_skeleton}>
+                                            </div>
+                                        }
+                                        {
                                             currentItemImages.length > 0 &&
                                             <img src={currentItemImages[imageIndex]} className={styles.item_image} />
                                         }

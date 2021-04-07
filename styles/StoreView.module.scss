@@ -122,3 +122,30 @@
     display: flex;
     align-items: center;
 }
+
+.image_skeleton
+{
+    width: 50%;
+    height: 200px;
+    background-color: #eaeaea;
+    box-shadow: 
+      0 15px 30px 0 rgba(0,0,0,0.05),
+      0 5px 15px 0 rgba(0,0,0,.05);
+    transition: ease box-shadow 0.3s;
+    &:hover {
+        box-shadow: 
+         0 15px 60px 0 rgba(0,0,0,0.08),
+         0 5px 25px 0 rgba(0,0,0,.08);
+       }
+       &::after {
+        display: block;
+        content: '';
+        position: absolute;
+        width: 50%;
+        height: 50px;
+        transform: translateX(-100%);
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .4), transparent);
+        animation: loading 2.0s infinite;
+      }
+
+}

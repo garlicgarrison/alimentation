@@ -26,7 +26,7 @@ export const emailLogin = (email: string, password: string) => {
 
 export const facebookAuth = () => {
     const provider = new firebase.auth.FacebookAuthProvider();
-    return firebase.auth().signInWithPopup(provider).then(user => {
+    return firebase.auth().signInWithPopup(provider).then(async user => {
         return user;
     }).catch(error => {
         return error;
@@ -35,7 +35,7 @@ export const facebookAuth = () => {
 
 export const googleAuth = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
-    return firebase.auth().signInWithPopup(provider).then(user => {
+    return firebase.auth().signInWithPopup(provider).then(async user => {
         return user;
     }).catch(error => {
         return error;
