@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import styles from '../../styles/components/cards/ShopItem.module.scss'
 import firebase from '../../firebase/config'
+import "@firebase/storage"
+
 
 const storage = firebase.storage();
 
