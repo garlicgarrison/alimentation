@@ -26,8 +26,9 @@ export default function Navbar() {
                     console.log("customer", doc)
                     doc.ref.collection("shopping_cart").get().then(shoppingSnap => {
                         shoppingSnap.forEach(shopDoc => {
-                            console.log(shopDoc.data())
-                            setShopCart(shopDoc);
+                            shopDoc.ref.onSnapshot(shopDocSnap => {
+                                setShopCart(shopDocSnap)
+                            })
                         })
                     })
                 })
