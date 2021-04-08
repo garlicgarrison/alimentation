@@ -21,6 +21,7 @@ export default function Store() {
     const [currentItem, setCurrentItem] = useState(null)
     const [currentItemImages, setCurrentItemImages] = useState([])
     const [imageIndex, setIndex] = useState(0)
+    const [quant, setQuant] = useState<number>(0)
 
     const storage = firebase.storage();
 
@@ -71,6 +72,7 @@ export default function Store() {
         setCurrentItemImages([])
         setIndex(0)
         setModal(false)
+        setQuant(0)
     }
 
     const decrementIndex = () => {
@@ -86,6 +88,24 @@ export default function Store() {
         if (imageIndex !== currentItemImages.length - 1) {
             setIndex(imageIndex + 1)
         }
+    }
+
+    const handleSelectChange = (e) => {
+        setQuant(e.target.value)
+    }
+
+    const Options = () => {
+        return (
+            <select onChange={handleSelectChange}>
+                {
+                    [...Array(51)].map((e, i) => {
+                        return (
+                            <option value={i}>{i}</option>
+                        )
+                    })
+                }
+            </select>
+        )
     }
     return (
         <>
@@ -160,12 +180,7 @@ export default function Store() {
                                             <p>Quantity:</p>
                                             {/*Dropdown Selection*/}
                                             <div className = {styles.select_cart}>
-                                                <select>
-                                                    <option value="#">1</option>
-                                                    <option value="#">2</option>
-                                                    <option value="#">3</option>
-                                                </select>
-
+                                                <Options/>
                                                 <button className={styles.add_to_cart_button}>
                                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M11 9H13V6H16V4H13V1H11V4H8V6H11V9ZM7 18C5.9 18 5.01 18.9 5.01 20C5.01 21.1 5.9 22 7 22C8.1 22 9 21.1 9 20C9 18.9 8.1 18 7 18ZM17 18C15.9 18 15.01 18.9 15.01 20C15.01 21.1 15.9 22 17 22C18.1 22 19 21.1 19 20C19 18.9 18.1 18 17 18ZM7.17 14.75L7.2 14.63L8.1 13H15.55C16.3 13 16.96 12.59 17.3 11.97L21.16 4.96L19.42 4H19.41L18.31 6L15.55 11H8.53L8.4 10.73L6.16 6L5.21 4L4.27 2H1V4H3L6.6 11.59L5.25 14.04C5.09 14.32 5 14.65 5 15C5 16.1 5.9 17 7 17H19V15H7.42C7.29 15 7.17 14.89 7.17 14.75Z" fill="white" />
