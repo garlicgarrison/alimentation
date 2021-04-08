@@ -1,0 +1,26 @@
+@import '../../utils.scss';
+.item_card_container
+{
+    padding: 15px;
+    display: flex;
+    img {
+        width: 90px;
+    }
+    .product_info {
+        margin-left: 15px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+}
+
+.name {
+    font-weight: 700;
+    color: $light-orange;
+}
+
+.trans_details
+{
+    display: flex;
+    justify-content: space-between;
+}

@@ -161,3 +161,23 @@
     cursor: pointer;
 }
 
+.shopping_cart_container
+{
+    width: 400px;
+    height: 100%;
+    background-color: white;
+    header {
+        padding: 20px;
+        background-color: $light-green;
+        color: white;
+        font-size: 25px;
+        font-weight: 700;
+    }
+    .cart_items_container
+    {
+        height: 70%;
+        overflow: auto;
+    }
+}
+
+

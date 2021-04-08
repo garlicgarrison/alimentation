@@ -12,7 +12,7 @@ import styles from '../../styles/components/cards/ModalBox.module.scss'
  * @param {string} cancelButtonCallback - If using default card, specify cancel button callback function
  * @param {string} cancelButtonName - If using default card, specify card cancelButtonName
  */
-export default function ModalBox({ children , cardType = "custom", title = "none", description = "none", applyButtonName="", applyButtonCallback= null, applyButtonDisable= null,cancelButtonCallback = null, cancelButtonName= "", dark=0.001, card=false}){
+export default function ModalBox({ children , cardType = "custom", title = "none", description = "none", cancelButtonCallback = null, dark=0.001, card=false, position="center"}){
 
     const modalRef = useRef(null);
 
@@ -42,7 +42,8 @@ export default function ModalBox({ children , cardType = "custom", title = "none
             {cardType === "custom" && (
                 <div className={card ? styles.overlay_open_card:styles.overlay_open} >
                     <main 
-                    style={{background: `rgba(0, 0 , 0, ${dark})`}} className={styles.main_container}>
+                    style={{background: `rgba(0, 0 , 0, ${dark})`}} 
+                    className={position === "center" ? styles.main_container : styles.right_main_container}>
                         <div ref={modalRef} className = {styles.children_container}>
                             {children}
                         </div>
