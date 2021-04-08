@@ -96,7 +96,7 @@ export default function Store() {
 
     const Options = () => {
         return (
-            <select onChange={handleSelectChange}>
+            <select onChange={handleSelectChange} value={quant}>
                 {
                     [...Array(51)].map((e, i) => {
                         return (
@@ -151,6 +151,7 @@ export default function Store() {
                                             </div>
                                         }
                                         {
+
                                             currentItemImages.length > 0 &&
                                             <img src={currentItemImages[imageIndex]} className={styles.item_image} />
                                         }
