@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Stores from '.';
 import ItemCard from '../../components/cards/ItemCard';
 import Layout from '../../components/layouts/Layout';
@@ -9,10 +9,15 @@ import Image from 'next/image'
 import { getItem, setShoppingCart } from '../../service/items';
 import ModalBox from '../../components/cards/ModalBox';
 import image from 'next/image';
+import { Context } from '../../components/state/ContextProvider';
 
 export default function Store() {
     const router = useRouter();
     const { storeId } = router.query;
+    const { authState, setauthState } = useContext(
+        Context
+    )
+
 
     const [storeData, setStoreData] = useState(null)
     const [items, setItems] = useState([])
@@ -96,7 +101,14 @@ export default function Store() {
     }
 
     const handleAddCart = async (e) => {
-        await setShoppingCart(firebase.auth().currentUser.uid, currentItem, quant, "")
+        if (!firebase.auth().currentUser)
+        {
+            router.push("/login")
+        }
+        else
+        {
+            await setShoppingCart(firebase.auth().currentUser.uid, currentItem, quant, "")
+        }
         cancelModal(e);
     }
 
