@@ -19,7 +19,7 @@ export default function StoreCard({storeDoc = null})
             setimageurl(url)
         })
     }, [])
-
+6
     const handleStoreClick = (e) => {
         router.push(`/stores/${storeDoc.id}`)
     }

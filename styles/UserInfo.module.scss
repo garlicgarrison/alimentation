@@ -1,5 +1,5 @@
-@import "./utils.scss"
-;.container {
+@import "./utils.scss";
+.container {
   min-height: 100vh;
   padding: 0 0.5rem;
   display: flex;
@@ -62,25 +62,20 @@
   font-size: 1.5rem;
 }
 
-.input_container
-{
+.input_container {
   width: 600px;
   height: 650px;
   background-color: white;
   border-radius: 30px;
-  box-shadow: 
-      0 15px 30px 0 rgba(0,0,0,0.05),
-      0 5px 15px 0 rgba(0,0,0,.05);
-    transition: ease box-shadow 0.3s;
-    &:hover {
-        box-shadow: 
-         0 15px 60px 0 rgba(0,0,0,0.08),
-         0 5px 25px 0 rgba(0,0,0,.08);
-       }
+  box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.05), 0 5px 15px 0 rgba(0, 0, 0, 0.05);
+  transition: ease box-shadow 0.3s;
+  &:hover {
+    box-shadow: 0 15px 60px 0 rgba(0, 0, 0, 0.08), 0 5px 25px 0 rgba(0, 0, 0, 0.08);
+  }
   padding: 50px;
   margin: 50px;
   h1 {
-    font-family: 'Lobster';
+    font-family: "Lobster";
     margin: 20px;
   }
   color: $light-green;
@@ -90,8 +85,7 @@
   justify-content: space-evenly;
 }
 
-.input_title
-{
+.input_title {
   height: 80px;
   color: $light-green;
   display: flex;
@@ -106,12 +100,11 @@
     margin: 0;
     font-family: Helvetica;
     font-size: 12px;
-    color: #AAAAAA;
+    color: #aaaaaa;
   }
 }
 
-.input_area
-{
+.input_area {
   width: 80%;
   display: flex;
   flex-direction: column;
@@ -119,58 +112,52 @@
   align-items: center;
 }
 
-.section
-{
+.section {
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: left;
+  margin-bottom: 10px;
   p {
     margin: 0;
   }
 }
 
-.three_in_row
-{
+.three_in_row {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   margin: 10px 0 10px 0;
 }
 
-.row_input
-{
+.row_input {
   width: 100%;
   height: 40px;
   margin-right: 8px;
   padding: 10px;
   outline: none;
-  border: 1px solid #1717171A;
+  border: 1px solid #1717171a;
   border-radius: 10px;
-  &::-webkit-input-placeholder
-  {
+  &::-webkit-input-placeholder {
     opacity: 0.2;
   }
 }
 
-.field_input
-{
+.field_input {
   width: 100%;
   height: 40px;
   padding: 10px;
   margin: 10px 0;
   outline: none;
-  border: 1px solid #1717171A;
+  border: 1px solid #1717171a;
   border-radius: 10px;
-  &::-webkit-input-placeholder
-  {
+  &::-webkit-input-placeholder {
     opacity: 0.2;
   }
 }
 
-.submit_button
-{
+.submit_button {
   width: 160px;
   margin: 20px;
   background-color: $light-green;
@@ -179,12 +166,16 @@
   outline: none;
   border: none;
   border-radius: 30px;
-  &:hover
-  {
-    cursor: pointer;
+  cursor: pointer;
+  color: white;
+  padding: 10px;
+  &:disabled {
+    background-color: lightgrey;
   }
-  p
-  {
-    color: white;
-  }
+}
+
+.error {
+  display: block;
+  margin-top: 10px;
+  color: red;
 }

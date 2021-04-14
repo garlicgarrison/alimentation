@@ -44,7 +44,7 @@ export default function Signup() {
         console.log("res", res)
         if (res.user)
         {
-            router.push("/stores")
+            router.push("/userinfo")
         }
         else if (res.message)
         {
@@ -59,7 +59,7 @@ export default function Signup() {
         console.log(res)
         if (res.user)
         {
-            router.push("/stores")
+            router.push("/userinfo")
         }
         else if (res.message)
         {
