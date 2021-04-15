@@ -1,5 +1,9 @@
 import firebase from "../../firebase/config"
 import "firebase/auth"
+import 'firebase/firestore'
+import { AddressObj, Name } from "../../models/users";
+
+let db = firebase.firestore();
 
 export const emailSignup =  (email: string, password: string) =>  {
     return firebase.auth().createUserWithEmailAndPassword(email, password).then(async (user) => {
@@ -44,4 +48,12 @@ export const googleAuth = () => {
 
 export const logout = () => {
     return firebase.auth().signOut();
+}
+
+export const setUserInfo = (address: AddressObj, name: Name, phone: string) => {
+    return db.collection("users").doc(firebase.auth().currentUser.uid).set({
+        main_address: address,
+        name: name,
+        phone_number: phone
+    })
 }

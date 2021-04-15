@@ -7,9 +7,12 @@ import Link from 'next/link';
 
 import Layout from '../components/layouts/Layout'
 import { Z_STREAM_ERROR } from 'node:zlib'
+import { setUserInfo } from '../service/auth/auth'
+import { useRouter } from 'next/router'
 
 export default function UserInfo() {
 
+  const router = useRouter()
   const formRef = useRef(null)
   const [address, setAddress] = useState({
     street1: "",
@@ -20,9 +23,9 @@ export default function UserInfo() {
   })
 
   const [userName, setName] = useState({
-    fname: "",
-    mname: "",
-    lname: ""
+    first: "",
+    middle: "",
+    last: ""
   })
 
   const [phone, setPhone] = useState("")
@@ -33,8 +36,8 @@ export default function UserInfo() {
     || address.city === "" 
     || address.state === "" 
     || address.zip === ""
-    || userName.fname === ""
-    || userName.lname === ""
+    || userName.first === ""
+    || userName.last === ""
     || phone === "")
   }
 
@@ -44,16 +47,16 @@ export default function UserInfo() {
     let tempName = userName;
     let tempAdd = address;
     switch (name) {
-      case "fname":
-        tempName.fname = value;
+      case "first":
+        tempName.first = value;
         setName(Object.assign(tempName))
         break;
-      case "lname":
-        tempName.lname = value;
+      case "last":
+        tempName.last = value;
         setName(Object.assign(tempName))
         break;
-      case "lname":
-        tempName.mname = value;
+      case "last":
+        tempName.middle = value;
         setName(Object.assign(tempName))
         break;
       case "number":
@@ -85,13 +88,21 @@ export default function UserInfo() {
 
   }
 
-  const handleContinue = (e) => {
+  const handleContinue = async (e) => {
 
     if (!isComplete())
     {
-      console.log("hety")
       setError("Please fill in all fields (middle name and street 2 are optional)")
       return;
+    }
+    else{
+      setUserInfo(address, userName, phone).then(() => {
+        router.push("/stores")
+      }).catch(error => {
+        setError(error.message)
+      })
+      
+    
     }
 
   }
@@ -114,9 +125,9 @@ export default function UserInfo() {
             <div className={styles.section}>
               <p>Name</p>
               <div className={styles.three_in_row}>
-                <input className={styles.row_input} placeholder="First name" name="fname" onChange={handleForm} />
-                <input className={styles.row_input} placeholder="Middle name" name="mname" onChange={handleForm} />
-                <input className={styles.row_input} placeholder="Last name" name="lname" onChange={handleForm} />
+                <input className={styles.row_input} placeholder="First name" name="first" onChange={handleForm} />
+                <input className={styles.row_input} placeholder="Middle name" name="middle" onChange={handleForm} />
+                <input className={styles.row_input} placeholder="Last name" name="last" onChange={handleForm} />
               </div>
             </div>
 
