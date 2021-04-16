@@ -14,6 +14,7 @@ import ShopItem from '../cards/ShopItem';
 const db = firebase.firestore();
 
 export default function Navbar() {
+    const router = useRouter()
     const { authState, setauthState } = useContext(Context)
     const [dropdown, setDropDown] = useState(false);
     const [shopCart, setShopCart] = useState(null)
@@ -161,11 +162,28 @@ export default function Navbar() {
                                     return (
                                         <div>
                                             <ShopItem item = {item}/>
-                                            <hr/>
+                                            {
+                                                index !== shopCart.data().items.length -1 &&
+                                                <hr style={{opacity: "20%"}}/>
+                                            }
                                         </div>
                                     )
                                 })
                             }
+                        </div>
+                        <div className = {styles.delivery_info}>
+                            <div><b>Delivery Fee:</b> <span>${shopCart.data().delivery.toFixed(2)}</span></div>
+                            <div><b>Tax:</b> <span>${shopCart.data().tax.toFixed(2)}</span></div>
+                            <div><b>Total Cost:</b> <span>${shopCart.data().total_cost.toFixed(2)}</span></div>
+                            <button className = {styles.checkout_button} 
+                            onClick={() => 
+                                {
+                                    setShowCart(false)
+                                    router.push('/checkout')
+                                }
+                            }>
+                                Continue to Checkout
+                            </button>
                         </div>
                     </div>
                 </ModalBox>
