@@ -43,6 +43,7 @@ export default function Profile() {
 
       //@ts-ignore
       db.collection("users").doc(firebase.auth().currentUser.uid).get().then(docRef => {
+        console.log(docRef)
         setUserDocRef(docRef)
       })
     }

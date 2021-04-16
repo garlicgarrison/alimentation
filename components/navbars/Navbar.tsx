@@ -132,6 +132,7 @@ export default function Navbar() {
                                             shopCart && 
                                             <span>
                                                 (
+                                                    
                                                     {shopCart.data().items.length}
                                                 )
                                             </span>
@@ -148,7 +149,7 @@ export default function Navbar() {
                 </div>
             </nav>
             {
-                showCart && 
+                showCart && shopCart &&
                 <ModalBox cardType="custom" cancelButtonCallback = {handleCancelModal} position = "right">
                     <div className = {styles.shopping_cart_container}>
                         <header className = {styles.shopping_cart_header}>
