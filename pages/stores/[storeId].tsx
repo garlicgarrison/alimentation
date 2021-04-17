@@ -101,6 +101,7 @@ export default function Store() {
     }
 
     const handleAddCart = async (e) => {
+        console.log("current Item", currentItem)
         if (!firebase.auth().currentUser)
         {
             router.push("/login")

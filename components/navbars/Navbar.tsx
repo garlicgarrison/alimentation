@@ -31,6 +31,7 @@ export default function Navbar() {
                     doc.ref.collection("shopping_cart").get().then(shoppingSnap => {
                         shoppingSnap.forEach(shopDoc => {
                             shopDoc.ref.onSnapshot(shopDocSnap => {
+                                console.log("shopdoc", shopDocSnap)
                                 setShopCart(shopDocSnap)
                             })
                         })
@@ -51,8 +52,16 @@ export default function Navbar() {
     }
 
     const handleCancelModal = e => {
-        console.log("hello")
         setShowCart(false)
+    }
+
+    const deleteShopItem = (index) => {
+        let tempArray = shopCart.data().items;
+        tempArray.splice(index, 1)
+        console.log("temp", tempArray)
+        shopCart.ref.update({
+                items: tempArray
+        })
     }
 
     return (
@@ -68,8 +77,6 @@ export default function Navbar() {
                             </Link>
                         </h1>
                     </div>
-
-
 
                     {/*right elements */}
                     {/* not logged in */}
@@ -159,11 +166,12 @@ export default function Navbar() {
                         <div className = {styles.cart_items_container}>
                             {
                                 shopCart.data().items.map((item, index) => {
+                                    console.log(item.image_url)
                                     return (
-                                        <div>
-                                            <ShopItem item = {item}/>
+                                        <div className = {styles.shop_item}>
+                                            <ShopItem item = {item} index = {index} deleteItem={deleteShopItem}/>
                                             {
-                                                index !== shopCart.data().items.length -1 &&
+                                                index !== shopCart.data().items.length - 1 &&
                                                 <hr style={{opacity: "20%"}}/>
                                             }
                                         </div>

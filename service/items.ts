@@ -31,7 +31,8 @@ export const getShoppingCart = (userId: string) => {
 
 }
 
-export const setShoppingCart = (userId: string, item: any, quantity: number, notes: string) => {
+export const setShoppingCart = (userId: string, item: any, quantity: number, notes = "") => {
+    console.log("itemdsfafdsa", item.data())
     db.collection("users").doc(userId).collection("customer").get().then(snapshot => {
         snapshot.forEach(doc => {
             doc.ref.collection("shopping_cart").get().then(shoppingSnap => {
@@ -46,8 +47,9 @@ export const setShoppingCart = (userId: string, item: any, quantity: number, not
                             quantity: {
                                 amount: quantity
                             },
-                            store_id: item.data().store_id
+                            store_id: item.data().store_id === undefined ? doc.ref.parent.parent.id : item.ref. item.data().store_id
                         })
+
                     })
                 })
             })

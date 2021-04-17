@@ -24,3 +24,18 @@
     display: flex;
     justify-content: space-between;
 }
+
+.delete_item
+{
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    color: white;
+    background-color: red;
+    outline: none;
+    border: none;
+    margin-left: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+}
