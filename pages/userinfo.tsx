@@ -55,7 +55,7 @@ export default function UserInfo() {
         tempName.last = value;
         setName(Object.assign(tempName))
         break;
-      case "last":
+      case "middle":
         tempName.middle = value;
         setName(Object.assign(tempName))
         break;

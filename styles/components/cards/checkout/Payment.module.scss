@@ -1,7 +1,6 @@
 @import "../../../utils.scss";
 
-
-.address_section {
+.payment_section {
     display: flex;
     flex-direction: column;
     span {
@@ -9,7 +8,7 @@
     }
 }
 
-.address_whole {
+.payment_whole {
     display: flex;
     width: 100%;
     justify-content: space-between;
@@ -26,7 +25,7 @@
     }
 }
 
-.address_section_edit {
+.payment_section_edit {
     div {
         width: 100%;
         display: flex;
@@ -73,7 +72,7 @@
     border-radius: 20px;
 }
 
-.change_address_container
+.change_payment_container
 {
     margin-top: 10px;
 }

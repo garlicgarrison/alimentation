@@ -3,6 +3,7 @@ import Layout from '../components/layouts/Layout';
 import styles from '../styles/Checkout.module.scss'
 import firebase from '../firebase/config'
 import Addresses from '../components/checkout/Addresses';
+import Payment from '../components/checkout/Payment';
 
 const db = firebase.firestore();
 
@@ -31,11 +32,13 @@ export default function Checkout()
     }, [firebase.auth().currentUser])
 
     return (
-        <div className = {styles.container}>
-            <Addresses/>
-            <div className = {styles.payment_method}>
+        <div className = {styles.main_container}>
+            <div className={styles.container}>
+                    <Addresses/>
+                    <Payment />
 
             </div>
+            
 
         </div>
     )
