@@ -4,6 +4,7 @@ import styles from '../styles/Checkout.module.scss'
 import firebase from '../firebase/config'
 import Addresses from '../components/checkout/Addresses';
 import Payment from '../components/checkout/Payment';
+import ReviewItems from '../components/checkout/ReviewItems';
 
 const db = firebase.firestore();
 
@@ -36,6 +37,7 @@ export default function Checkout()
             <div className={styles.container}>
                     <Addresses/>
                     <Payment />
+                    <ReviewItems />
 
             </div>
             

@@ -2,7 +2,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import firebase from '../../firebase/config'
 import styles from '../../styles/components/cards/checkout/Payment.module.scss'
 import { Context } from '../state/ContextProvider';
-import PaymentForm from './CreditCard';
+import Cards from 'react-credit-cards'
+import 'react-credit-cards/es/styles-compiled.css';
 
 const db = firebase.firestore();
 
@@ -28,8 +29,12 @@ export default function Payment()
     }, [authState])
 
     useEffect(() => {
-        if (userDocRef) {
+        if (userDocRef && userDocRef.data().creidt_card) {
             setPayment(userDocRef.data().credit_card)
+        }
+        else if (userDocRef && userDocRef.data().credit_card !== null)
+        {
+            db.collection("users").doc
         }
     }, [userDocRef])
 
@@ -44,10 +49,10 @@ export default function Payment()
 
             db.collection("users").doc(firebase.auth().currentUser.uid).set({
                 credit_card: payment
-            }).then((result) => {
+            }, { merge: true }).then((result) => {
                 console.log("result", result)
                 db.collection("users").doc(firebase.auth().currentUser.uid).get().then(userRef => {
-                    setPayment(userRef.data().main_address)
+                    setPayment(userRef.data().credit_card)
                 }).then(() => {
                     setEditOn(false)
                     setError(null)
@@ -61,7 +66,7 @@ export default function Payment()
 
     const discardChanges = () => {
         setPayment(
-            userDocRef.data().main_address
+            userDocRef.data().credit_card
         )
         setEditOn(false)
         setError(null)
@@ -113,6 +118,12 @@ export default function Payment()
             {
                 userDocRef && editOn &&
                     <div className={styles.payment_section_edit}>
+                    <Cards
+                        cvc = {payment.cvc}
+                        expiry = {payment.expiry}
+                        name = {payment.nameOnCard}
+                        number = {payment.number}
+                    />
                     <input defaultValue={userDocRef.data().credit_card.nameOnCard} placeholder="Name on Card" name="nameOnCard" onChange={handlePaymentChange}></input>
                     <input defaultValue={userDocRef.data().credit_card.number} placeholder="Card Number" name="number" onChange={handlePaymentChange}></input>
                     <div>

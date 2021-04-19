@@ -55,5 +55,5 @@ export const setUserInfo = (address: AddressObj, name: Name, phone: string) => {
         main_address: address,
         name: name,
         phone_number: phone
-    })
+    }, { merge: true })
 }

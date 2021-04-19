@@ -25,13 +25,11 @@ export default function Navbar() {
         if (authState.user)
         {
             db.collection("users").doc(firebase.auth().currentUser.uid).collection("customer").get().then(snapshot => {
-
                 snapshot.forEach(doc => {
                     console.log("customer", doc)
                     doc.ref.collection("shopping_cart").get().then(shoppingSnap => {
                         shoppingSnap.forEach(shopDoc => {
                             shopDoc.ref.onSnapshot(shopDocSnap => {
-                                console.log("shopdoc", shopDocSnap)
                                 setShopCart(shopDocSnap)
                             })
                         })
@@ -58,7 +56,6 @@ export default function Navbar() {
     const deleteShopItem = (index) => {
         let tempArray = shopCart.data().items;
         tempArray.splice(index, 1)
-        console.log("temp", tempArray)
         shopCart.ref.update({
                 items: tempArray
         })

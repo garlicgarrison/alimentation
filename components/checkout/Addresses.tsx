@@ -69,7 +69,7 @@ export default function Addresses() {
 
             db.collection("users").doc(firebase.auth().currentUser.uid).set({
                 main_address: address
-            }).then((result) => {
+            }, { merge: true }).then((result) => {
                 console.log("result", result)
                 db.collection("users").doc(firebase.auth().currentUser.uid).get().then(userRef => {
                     setAddress(userRef.data().main_address)

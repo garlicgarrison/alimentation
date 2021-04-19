@@ -1,0 +1,12 @@
+@import "../../../utils.scss";
+
+.change_button {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    color: $light-green;
+    &:hover {
+        text-decoration: underline;
+        text-decoration-color: $light-green;
+    }
+}
