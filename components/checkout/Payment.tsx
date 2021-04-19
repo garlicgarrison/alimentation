@@ -4,11 +4,11 @@ import styles from '../../styles/components/cards/checkout/Payment.module.scss'
 import { Context } from '../state/ContextProvider';
 import Cards from 'react-credit-cards'
 import 'react-credit-cards/es/styles-compiled.css';
+import CreditCard from '../../custom_modules/Cards';
 
 const db = firebase.firestore();
 
-export default function Payment()
-{
+export default function Payment() {
     const [error, setError] = useState(null)
     const [editOn, setEditOn] = useState(false)
     const [userDocRef, setUserDoc] = useState(null)
@@ -18,7 +18,9 @@ export default function Payment()
         nameOnCard: "",
         number: ""
     })
-    const {authState, setAuthState} = useContext(Context)
+
+    const [focus, setFocus] = useState('')
+    const { authState, setAuthState } = useContext(Context)
 
     useEffect(() => {
         if (authState.user) {
@@ -32,13 +34,12 @@ export default function Payment()
         if (userDocRef && userDocRef.data().creidt_card) {
             setPayment(userDocRef.data().credit_card)
         }
-        else if (userDocRef && userDocRef.data().credit_card !== null)
-        {
+        else if (userDocRef && userDocRef.data().credit_card !== null) {
             db.collection("users").doc
         }
     }, [userDocRef])
 
-    const changeAddress = () => {
+    const changePayment = () => {
         console.log(payment)
         if (
             payment.cvc !== "" &&
@@ -75,6 +76,7 @@ export default function Payment()
     const handlePaymentChange = (event) => {
         const { name, value } = event.target;
         let tempPayment = payment;
+        console.log("temp", tempPayment)
         switch (name) {
             case "cvc":
                 tempPayment.cvc = value;
@@ -91,7 +93,12 @@ export default function Payment()
             default:
                 break;
         }
-        setPayment(tempPayment)
+        setPayment(Object.assign({}, tempPayment))
+        console.log("payment", payment)
+    }
+
+    const handleFocus = e => {
+        setFocus(e.target.name)
     }
 
 
@@ -100,48 +107,51 @@ export default function Payment()
             <h1>2. Choose Payment</h1>
             {
                 error &&
-                <span className = {styles.error}>{error}</span>
+                <span className={styles.error}>{error}</span>
             }
-            
+
             <div className={styles.payment_whole}>
-            {
-                userDocRef && !editOn &&
-                <div className = {styles.payment_section}>
-                    <span>card ending in xxxx</span> {/*unfinished*/}
-                </div>
-            }
-            {
-                userDocRef && !editOn &&
-                <button className={styles.change_button} onClick={() => setEditOn(true)}>Change</button>
-            }
+                {
+                    userDocRef && !editOn &&
+                    <div className={styles.payment_section}>
+                        <span>card ending in xxxx</span> {/*unfinished*/}
+                    </div>
+                }
+                {
+                    userDocRef && !editOn &&
+                    <button className={styles.change_button} onClick={() => setEditOn(true)}>Change</button>
+                }
             </div>
             {
                 userDocRef && editOn &&
-                    <div className={styles.payment_section_edit}>
-                    <Cards
-                        cvc = {payment.cvc}
-                        expiry = {payment.expiry}
-                        name = {payment.nameOnCard}
-                        number = {payment.number}
+                <div className={styles.payment_section_edit}>
+                    <CreditCard
+                        cvc={payment.cvc}
+                        expiry={payment.expiry}
+                        focused={focus}
+                        name={payment.nameOnCard}
+                        number={payment.number}
                     />
-                    <input defaultValue={userDocRef.data().credit_card.nameOnCard} placeholder="Name on Card" name="nameOnCard" onChange={handlePaymentChange}></input>
-                    <input defaultValue={userDocRef.data().credit_card.number} placeholder="Card Number" name="number" onChange={handlePaymentChange}></input>
-                    <div>
-                        <input defaultValue={userDocRef.data().credit_card.expiry} placeholder="Expiration Date" name="expiry" onChange={handlePaymentChange}></input>
-                        <input defaultValue={userDocRef.data().credit_card.cvc} placeholder="Security Code" name="cvc" onChange={handlePaymentChange}></input>
-                    </div>
-                    <div className = {styles.change_payment_container}>
-                        <button className = {styles.discard} onClick = {discardChanges}>
+                    <form>
+                        <input defaultValue={userDocRef.data().credit_card.nameOnCard} placeholder="Name on Card" name="nameOnCard" onChange={handlePaymentChange} onFocus={handleFocus}></input>
+                        <input defaultValue={userDocRef.data().credit_card.number} placeholder="Card Number" name="number" onChange={handlePaymentChange} onFocus={handleFocus}></input>
+                        <div>
+                            <input defaultValue={userDocRef.data().credit_card.expiry} placeholder="Expiration Date" name="expiry" onChange={handlePaymentChange} onFocus={handleFocus}></input>
+                            <input defaultValue={userDocRef.data().credit_card.cvc} placeholder="Security Code" name="cvc" onChange={handlePaymentChange} onFocus={handleFocus}></input>
+                        </div>
+                    </form>
+                    <div className={styles.change_payment_container}>
+                        <button className={styles.discard} onClick={discardChanges}>
                             Discard
                         </button>
-                        <button className = {styles.save} onClick = {changeAddress}>
+                        <button className={styles.save} onClick={changePayment}>
                             Save
                         </button>
                     </div>
                 </div>
             }
-           
+
         </div>
-        
+
     )
 }

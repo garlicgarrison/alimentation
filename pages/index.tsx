@@ -3,6 +3,7 @@ import styles from '../styles/Home.module.scss'
 import React, { useEffect, useState } from 'react'
 import firebase from '../firebase/config'
 import "firebase/firestore"
+import Link from 'next/link';
 
 import Layout from '../components/layouts/Layout'
 
@@ -64,6 +65,9 @@ export default function Home() {
                 </svg>
               </button>
             </div>
+            <Link href={{ pathname: '/stores' }}>
+              <a className = {styles.check_all_stores}>Check all stores</a>
+            </Link>
           </div>
 
         </div>

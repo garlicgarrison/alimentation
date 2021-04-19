@@ -47,7 +47,7 @@ export const setShoppingCart = (userId: string, item: any, quantity: number, not
                             quantity: {
                                 amount: quantity
                             },
-                            store_id: item.data().store_id === undefined ? doc.ref.parent.parent.id : item.ref. item.data().store_id
+                            store_id: item.data().store_id === undefined ? doc.ref.parent.parent.id : item.data().store_id
                         })
 
                     })

@@ -1,12 +1,10 @@
 @import "../../../utils.scss";
 
-.change_button {
-    border: none;
-    outline: none;
-    background-color: transparent;
-    color: $light-green;
-    &:hover {
-        text-decoration: underline;
-        text-decoration-color: $light-green;
-    }
+.reviewitems_section
+{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: space-between;
+
 }
