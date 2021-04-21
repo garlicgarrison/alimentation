@@ -31,7 +31,7 @@ export default function Payment() {
     }, [authState])
 
     useEffect(() => {
-        if (userDocRef && userDocRef.data().creidt_card) {
+        if (userDocRef && userDocRef.data().credit_card) {
             setPayment(userDocRef.data().credit_card)
         }
         else if (userDocRef && userDocRef.data().credit_card !== null) {
@@ -114,7 +114,7 @@ export default function Payment() {
                 {
                     userDocRef && !editOn &&
                     <div className={styles.payment_section}>
-                        <span>card ending in xxxx</span> {/*unfinished*/}
+                        <span>card ending in {payment.number.substr(-4)}</span> {/*unfinished*/}
                     </div>
                 }
                 {

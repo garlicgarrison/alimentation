@@ -119,6 +119,7 @@ export default function Store() {
                 {
                     [...Array(51)].map((e, i) => {
                         return (
+                            i > 0 &&
                             <option value={i}>{i}</option>
                         )
                     })

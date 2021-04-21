@@ -13,12 +13,58 @@
     min-height: 100vh;
     padding: 0 0.5rem;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
-  }
+}
 
-  .container {
+.totalAmt_container
+{
+  width: 550px;
+  height: 250px;
+  padding: 50px;
+  margin-top: 20px;
+  background-color: white;
+  border-radius: 30px;
+  box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.05), 0 5px 15px 0 rgba(0, 0, 0, 0.05);
+  transition: ease box-shadow 0.3s;
+  &:hover {
+    box-shadow: 0 15px 60px 0 rgba(0, 0, 0, 0.08), 0 5px 25px 0 rgba(0, 0, 0, 0.08);
+  }
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: space-evenly;
+}
+
+.amt_content
+{
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: left;
+  justify-content: space-evenly;
+}
+
+.amtTitle
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  font-family: "Lobster";
+  color: $light-green;
+  font-size: 18px;
+}
+.amount
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  font-size: 16px;
+}
+
+.container
+{
     width: 550px;
     height: 750px;
     padding: 30px 30px;
@@ -43,4 +89,15 @@
 
 .address_section .payment_method_section{
   width: 75%;
+}
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  h1 {
+    font-family: "Lobster";
+    margin: 20px;
+    color: $light-green;
+    text-align: center;
+}
 }
