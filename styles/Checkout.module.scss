@@ -101,3 +101,16 @@
     text-align: center;
 }
 }
+
+.order_button {
+  width:100%;
+  margin-top: 20px;
+  margin-bottom: 50px;
+  padding: 20px;
+  color: white;
+  font-size: 20px;
+  background-color: $light-green;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}

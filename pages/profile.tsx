@@ -9,6 +9,7 @@ import "firebase/firestore"
 import Link from 'next/link';
 import { getHeapSnapshot } from 'node:v8';
 import { setUserInfo } from '../service/auth/auth';
+import { createDriver } from '../service/delivery';
 
 
 export default function Profile() {
@@ -20,6 +21,7 @@ export default function Profile() {
 
   const [userDocRef, setUserDocRef] = useState(null)
   const [editOn, setEditOn] = useState(false)
+  const [driver, setDriver] = useState(false)
 
   const [address, setAddress] = useState({
     street1: "",
@@ -46,44 +48,48 @@ export default function Profile() {
         console.log(docRef)
         setUserDocRef(docRef)
       })
+
+      db.collection("users").doc(firebase.auth().currentUser.uid).collection("driver").onSnapshot(res => {
+        if (res.docs.length > 0) {
+          setDriver(true)
+        }
+      })
     }
 
   }, [authState.user])
 
   useEffect(() => {
-    if (userDocRef)
-    {
+    if (userDocRef) {
       setAddress(userDocRef.data().main_address)
       setPhone(userDocRef.data().phone_number)
       setName(userDocRef.data().name)
     }
   }, [userDocRef])
 
-  const isComplete = () : boolean => {
-    return !(address.street1 === "" 
-    || address.city === "" 
-    || address.state === "" 
-    || address.zip === ""
-    || userName.first === ""
-    || userName.last === ""
-    || phone === "")
+  const isComplete = (): boolean => {
+    return !(address.street1 === ""
+      || address.city === ""
+      || address.state === ""
+      || address.zip === ""
+      || userName.first === ""
+      || userName.last === ""
+      || phone === "")
   }
 
   const handleContinue = async (e) => {
 
-    if (!isComplete())
-    {
+    if (!isComplete()) {
       setError("Please fill in all fields (middle name and street 2 are optional)")
       return;
     }
-    else{
+    else {
       setUserInfo(address, userName, phone).then(() => {
         router.push("/stores")
       }).catch(error => {
         setError(error.message)
       })
-      
-    
+
+
     }
 
   }
@@ -129,7 +135,7 @@ export default function Profile() {
         tempAdd.zip = value;
         setAddress(Object.assign(tempAdd))
         break;
-      default: 
+      default:
         break;
     }
     console.log(address)
@@ -147,6 +153,12 @@ export default function Profile() {
           </Head>
 
           <main className={styles.main}>
+            {
+              !driver &&
+              <button className={styles.driver} onClick={createDriver}>
+                Become a driver
+              </button>
+            }
             <div className={styles.main_container}>
               <div className={styles.input_title}>
                 <h1>Profile</h1>
@@ -171,9 +183,9 @@ export default function Profile() {
                     {
                       userDocRef && editOn &&
                       <div>
-                        <input defaultValue = {userDocRef.data().name.first} className = {styles.input_area} placeholder = "First Name" name = "first" onChange={handleForm}/>
-                        <input defaultValue = {userDocRef.data().name.middle} className = {styles.input_area} placeholder = "Middle Name" name = "middle" onChange={handleForm}/>
-                        <input defaultValue = {userDocRef.data().name.last} className = {styles.input_area} placeholder = "Last Name" name = "last" onChange={handleForm}/>
+                        <input defaultValue={userDocRef.data().name.first} className={styles.input_area} placeholder="First Name" name="first" onChange={handleForm} />
+                        <input defaultValue={userDocRef.data().name.middle} className={styles.input_area} placeholder="Middle Name" name="middle" onChange={handleForm} />
+                        <input defaultValue={userDocRef.data().name.last} className={styles.input_area} placeholder="Last Name" name="last" onChange={handleForm} />
                       </div>
                     }
                   </div>
@@ -195,7 +207,7 @@ export default function Profile() {
                     {
                       userDocRef && editOn &&
                       <div>
-                        <input defaultValue = {userDocRef.data().phone_number} className = {styles.input_area} placeholder = "Phone Number" name = "phone_number" onChange={handleForm}/>
+                        <input defaultValue={userDocRef.data().phone_number} className={styles.input_area} placeholder="Phone Number" name="phone_number" onChange={handleForm} />
                       </div>
                     }
                   </div>
@@ -212,11 +224,11 @@ export default function Profile() {
                       {
                         userDocRef && editOn &&
                         <div>
-                          <input defaultValue = {userDocRef.data().main_address.street1} className = {styles.input_area} placeholder = "Street 1" name = "street1" onChange={handleForm}/>
+                          <input defaultValue={userDocRef.data().main_address.street1} className={styles.input_area} placeholder="Street 1" name="street1" onChange={handleForm} />
                         </div>
                       }
                     </span>
-                    
+
                     <span className={styles.street}>
                       {
                         userDocRef && !editOn &&
@@ -225,12 +237,12 @@ export default function Profile() {
                       {
                         userDocRef && editOn &&
                         <div>
-                          <input defaultValue = {userDocRef.data().main_address.street2} className = {styles.input_area} placeholder = "Street 2" name = "street2" onChange={handleForm}/>
+                          <input defaultValue={userDocRef.data().main_address.street2} className={styles.input_area} placeholder="Street 2" name="street2" onChange={handleForm} />
                         </div>
                       }
                     </span>
-                    <div className = {styles.city_state}>
-                      <span  className={styles.city}>
+                    <div className={styles.city_state}>
+                      <span className={styles.city}>
                         {
                           userDocRef && !editOn &&
                           userDocRef.data().main_address.city
@@ -238,7 +250,7 @@ export default function Profile() {
                         {
                           userDocRef && editOn &&
                           <div>
-                            <input defaultValue = {userDocRef.data().main_address.city} className = {styles.input_area} placeholder = "City" name = "city" onChange={handleForm}/>
+                            <input defaultValue={userDocRef.data().main_address.city} className={styles.input_area} placeholder="City" name="city" onChange={handleForm} />
                           </div>
                         }
                       </span>
@@ -250,7 +262,7 @@ export default function Profile() {
                         {
                           userDocRef && editOn &&
                           <div>
-                            <input defaultValue = {userDocRef.data().main_address.state} className = {styles.input_area} placeholder = "State" name = "state" onChange={handleForm}/>
+                            <input defaultValue={userDocRef.data().main_address.state} className={styles.input_area} placeholder="State" name="state" onChange={handleForm} />
                           </div>
                         }
                       </span>
@@ -263,7 +275,7 @@ export default function Profile() {
                       {
                         userDocRef && editOn &&
                         <div>
-                          <input defaultValue = {userDocRef.data().main_address.zip} className = {styles.input_area} placeholder = "Zip Code" name = "zip" onChange={handleForm}/>
+                          <input defaultValue={userDocRef.data().main_address.zip} className={styles.input_area} placeholder="Zip Code" name="zip" onChange={handleForm} />
                         </div>
                       }
                     </span>
@@ -271,23 +283,23 @@ export default function Profile() {
                 </div>
 
 
-              {
-                !editOn &&
-                <button className={styles.submit_button} disabled = {userDocRef === null} onClick = {() => setEditOn(true)}>
+                {
+                  !editOn &&
+                  <button className={styles.submit_button} disabled={userDocRef === null} onClick={() => setEditOn(true)}>
                     Edit Profile
                 </button>
-              }
-              {
-                editOn && 
-                <div>
-                  <button className={styles.submit_button} disabled = {userDocRef === null} onClick={() => setEditOn(false)}>
-                    Discard
+                }
+                {
+                  editOn &&
+                  <div>
+                    <button className={styles.submit_button} disabled={userDocRef === null} onClick={() => setEditOn(false)}>
+                      Discard
                   </button>
-                  <button className={styles.submit_button} disabled = {userDocRef === null} onClick={handleContinue}>
-                    Save
+                    <button className={styles.submit_button} disabled={userDocRef === null} onClick={handleContinue}>
+                      Save
                   </button>
-                </div>
-              }
+                  </div>
+                }
               </div>
 
             </div>

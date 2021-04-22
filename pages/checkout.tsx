@@ -31,6 +31,24 @@ export default function Checkout() {
 
     }, [authState.user])
 
+    const handleCheckout = async () => {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json')
+        let body = {
+            data: {
+
+                customer_id: firebase.auth().currentUser.uid
+            }
+        }
+        await fetch("https://us-central1-alimentation-851c0.cloudfunctions.net/createTransaction",
+            {
+                method: "POST",
+                headers: headers,
+                body: JSON.stringify(body)
+            }
+        )
+    }
+
     return (
         <div className={styles.main_container}>
             <div className={styles.steps}>
@@ -54,6 +72,11 @@ export default function Checkout() {
                             </div>
                         }
                     </div>
+                </div>
+                <div className = {styles.select_driver_container}>
+                    <button className = {styles.order_button} onClick={handleCheckout}>
+                        Order
+                    </button>
                 </div>
             </div>
 

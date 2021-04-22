@@ -19,6 +19,7 @@ export default function Navbar() {
     const [dropdown, setDropDown] = useState(false);
     const [shopCart, setShopCart] = useState(null)
     const [showCart, setShowCart] = useState(false)
+    const [driver, setDriver] = useState(false)
     
     useEffect(() => {
         console.log(firebase.auth().currentUser)
@@ -27,7 +28,7 @@ export default function Navbar() {
             db.collection("users").doc(firebase.auth().currentUser.uid).collection("customer").get().then(snapshot => {
                 snapshot.forEach(doc => {
                     console.log("customer", doc)
-                    doc.ref.collection("shopping_cart").get().then(shoppingSnap => {
+                    doc.ref.collection("shopping_cart").onSnapshot(shoppingSnap => {
                         shoppingSnap.forEach(shopDoc => {
                             shopDoc.ref.onSnapshot(shopDocSnap => {
                                 setShopCart(shopDocSnap)
@@ -36,6 +37,16 @@ export default function Navbar() {
                     })
                 })
             })
+
+            db.collection("users").doc(firebase.auth().currentUser.uid).collection("driver").onSnapshot(driverDocs => {
+                driverDocs.forEach(driver => {
+                    if (driver)
+                    {
+                        setDriver(true)
+                    }
+                })
+            })
+
         }
       }, [authState.user])
 
@@ -116,6 +127,16 @@ export default function Navbar() {
                                         </a>
                                     </Link>
                                 </li>
+                                {
+                                    driver && 
+                                    <li>
+                                        <Link href={{pathname: '/driver'}}>
+                                            <a className = {styles.driver_link}>
+                                                Driver
+                                            </a>
+                                        </Link>
+                                    </li>
+                                }
                                 <li>
                                     <div className={styles.down_arrow_container} onClick={handleDropdown}>
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
