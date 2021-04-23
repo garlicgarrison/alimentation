@@ -30,14 +30,16 @@ export default function Driver() {
 
 
         }
-        /*
-        db.collection("transactions").get().then(snapshot => {
+        
+        db.collection("transactions").where("transaction_state", "==", "paid").get().then(snapshot => {
             let tempTransac = []
-            snapshot.forEach(doc => {
-                tempTransac = [...tempTransac, doc]
-            })
-            setTransactions(tempTransac)
-        })*/
+            console.log("snapshot", snapshot)
+        })
+
+        db.collection("transactions").where("driver_id", "==", firebase.auth().currentUser.uid).get().then(snapshot => {
+            let tempTransac = []
+            console.log("snapshot", snapshot)
+        })
         
     }, [authState.user])
 
