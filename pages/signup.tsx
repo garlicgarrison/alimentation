@@ -39,9 +39,9 @@ export default function Signup() {
         e.preventDefault();
         let email = formRef.current.username.value
         let pw = formRef.current.password.value
-        console.log(email, pw)
+        
         let res = await emailSignup(email, pw);
-        console.log("res", res)
+        
         if (res.user)
         {
             router.push("/userinfo")

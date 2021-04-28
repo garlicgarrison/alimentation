@@ -17,7 +17,7 @@ export default function ModalBox({ children , cardType = "custom", title = "none
     const modalRef = useRef(null);
 
     const handleClick =  (event) => {
-        console.log(event.target)
+        
         if (modalRef.current && !modalRef.current.contains(event.target))
         {
             if (cancelButtonCallback){

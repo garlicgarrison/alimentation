@@ -51,13 +51,13 @@ export default function Store() {
     }, [storeId])
 
     useEffect(() => {
-        console.log("current item", currentItem)
+        
 
         if (currentItem) {
             let temparray = []
             currentItem.data().images_url.forEach(image => {
                 storage.ref(`items/${image}`).getDownloadURL().then(url => {
-                    console.log("url", url)
+                    
                     temparray.push(url)
                     setCurrentItemImages(temparray)
                 })
@@ -73,7 +73,7 @@ export default function Store() {
     }
 
     const cancelModal = (e) => {
-        console.log("e", e)
+        
         setModal(false)
         setCurrentItem(null)
         setCurrentItemImages([])
@@ -82,15 +82,15 @@ export default function Store() {
     }
 
     const decrementIndex = () => {
-        console.log("imageindex", imageIndex)
-        console.log("array", currentItemImages)
+        
+        
         if (imageIndex !== 0) {
             setIndex(imageIndex - 1)
         }
     }
     const incrementIndex = () => {
-        console.log("imageindex", imageIndex)
-        console.log("array", currentItemImages)
+        
+        
         if (imageIndex !== currentItemImages.length - 1) {
             setIndex(imageIndex + 1)
         }
@@ -101,7 +101,7 @@ export default function Store() {
     }
 
     const handleAddCart = async (e) => {
-        console.log("current Item", currentItem)
+        
         if (!firebase.auth().currentUser)
         {
             router.push("/login")

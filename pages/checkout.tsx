@@ -36,7 +36,6 @@ export default function Checkout() {
         headers.append('Content-Type', 'application/json')
         let body = {
             data: {
-
                 customer_id: firebase.auth().currentUser.uid
             }
         }

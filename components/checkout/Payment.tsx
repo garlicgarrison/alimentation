@@ -40,7 +40,7 @@ export default function Payment() {
     }, [userDocRef])
 
     const changePayment = () => {
-        console.log(payment)
+        
         if (
             payment.cvc !== "" &&
             payment.expiry !== "" &&
@@ -51,7 +51,7 @@ export default function Payment() {
             db.collection("users").doc(firebase.auth().currentUser.uid).set({
                 credit_card: payment
             }, { merge: true }).then((result) => {
-                console.log("result", result)
+                
                 db.collection("users").doc(firebase.auth().currentUser.uid).get().then(userRef => {
                     setPayment(userRef.data().credit_card)
                 }).then(() => {
@@ -76,7 +76,7 @@ export default function Payment() {
     const handlePaymentChange = (event) => {
         const { name, value } = event.target;
         let tempPayment = payment;
-        console.log("temp", tempPayment)
+        
         switch (name) {
             case "cvc":
                 tempPayment.cvc = value;
@@ -94,7 +94,7 @@ export default function Payment() {
                 break;
         }
         setPayment(Object.assign({}, tempPayment))
-        console.log("payment", payment)
+        
     }
 
     const handleFocus = e => {

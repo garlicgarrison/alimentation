@@ -22,12 +22,12 @@ export default function Navbar() {
     const [driver, setDriver] = useState(false)
     
     useEffect(() => {
-        console.log(firebase.auth().currentUser)
+        
         if (authState.user)
         {
             db.collection("users").doc(firebase.auth().currentUser.uid).collection("customer").get().then(snapshot => {
                 snapshot.forEach(doc => {
-                    console.log("customer", doc)
+                    
                     doc.ref.collection("shopping_cart").onSnapshot(shoppingSnap => {
                         shoppingSnap.forEach(shopDoc => {
                             shopDoc.ref.onSnapshot(shopDocSnap => {
@@ -138,6 +138,13 @@ export default function Navbar() {
                                     </li>
                                 }
                                 <li>
+                                    <Link href={{ pathname: '/orders' }}>
+                                        <a style={{color: "#5F890D"}}>
+                                            My Orders
+                                        </a>
+                                    </Link>
+                                </li>
+                                <li>
                                     <div className={styles.down_arrow_container} onClick={handleDropdown}>
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
                                             <path fill="#E9692C" d="M12 13.172l4.95-4.95 1.414 1.414L12 16 5.636 9.636 7.05 8.222z"></path>
@@ -184,7 +191,7 @@ export default function Navbar() {
                         <div className = {styles.cart_items_container}>
                             {
                                 shopCart.data().items.map((item, index) => {
-                                    console.log(item.image_url)
+                                    
                                     return (
                                         <div className = {styles.shop_item}>
                                             <ShopItem item = {item} index = {index} deleteItem={deleteShopItem}/>

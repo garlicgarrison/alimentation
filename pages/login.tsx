@@ -38,18 +38,18 @@ export default function Login() {
     e.preventDefault();
     let email = formRef.current.username.value
     let pw = formRef.current.password.value
-    console.log(email, pw)
+    
     let res = await emailLogin(email, pw);
-    console.log("res", res)
+    
     if (res.user)
     {
-        console.log("You are logged in");
+        
         //What to do after login
         Router.push('/stores')
     }
     else if (res.message)
     {
-      console.log("Login failed");  
+      
       setLoginError(res.message)
     }
 }
@@ -58,16 +58,16 @@ export default function Login() {
 const handleFacebookLogin = async (e : React.MouseEvent<HTMLElement>) => {
   e.preventDefault();
   let res = await facebookAuth();
-  console.log(res)
+  
   if (res.user)
   {
-      console.log("You are logged in");
+      
       //What to do after login
       Router.push('/stores')
   }
   else if (res.message)
   {
-    console.log("Login failed");  
+    
     setLoginError(res.message)
   }
 }
@@ -76,16 +76,16 @@ const handleFacebookLogin = async (e : React.MouseEvent<HTMLElement>) => {
 const handleGoogleLogin = async (e) => {
   e.preventDefault();
   let res = await googleAuth();
-  console.log(res)
+  
   if (res.user)
     {
-        console.log("You are logged in");
+        
         //What to do after login
         Router.push('/stores')
     }
     else if (res.message)
     {
-      console.log("Login failed");  
+      
       setLoginError(res.message)
     }
 }

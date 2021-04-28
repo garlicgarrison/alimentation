@@ -39,3 +39,25 @@
     border-radius: 50%;
     cursor: pointer;
 }
+
+
+.name_order {
+    width: 100%;
+    font-weight: 700;
+    color: $light-orange;
+}
+
+    .product_info_order {
+        width: 100%;
+        margin-left: 15px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+.trans_details_order
+{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}

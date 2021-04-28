@@ -59,7 +59,7 @@ export default function Addresses() {
     }, [userDocRef])
 
     const changeAddress = () => {
-        console.log(address)
+        
         if (
             address.street1 !== "" &&
             address.city !== "" &&
@@ -70,7 +70,7 @@ export default function Addresses() {
             db.collection("users").doc(firebase.auth().currentUser.uid).set({
                 main_address: address
             }, { merge: true }).then((result) => {
-                console.log("result", result)
+                
                 db.collection("users").doc(firebase.auth().currentUser.uid).get().then(userRef => {
                     setAddress(userRef.data().main_address)
                 }).then(() => {

@@ -23,19 +23,19 @@ export default function Home() {
   }
 
   const successCallback = async (position) => {
-    console.log(position)
+    
     setLocationError(null)
     setCoordinates(position.coords)
     let zipRes = await fetch(`http://ws.geonames.org/findNearbyPostalCodesJSON?formatted=true&lat=36&lng=-79.08`)
   }
 
   const errorCallback = error => {
-    console.log(error)
+    
     setLocationError(error)
   }
 
   const getLocation = async e => {
-    console.log("getlocation")
+    
     await navigator.geolocation.getCurrentPosition(successCallback, errorCallback, locationOptions)
   }
 

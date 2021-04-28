@@ -17,6 +17,7 @@
 }
 
 .main_container {
+    
     width: 600px;
     background-color: white;
     border-radius: 30px;
@@ -35,7 +36,7 @@
     }
     display: flex;
     flex-direction: column;
-    
+    margin: 50px 0 50px;
     /*justify-content: space-evenly;*/
 }
 
@@ -72,4 +73,13 @@
     }
     cursor: pointer;
     }
+}
+
+
+
+.total_price
+{
+    display: block;
+    color: $light-green;
+    margin: 20px 0 10px;
 }
