@@ -5,6 +5,7 @@ import styles from '../styles/Driver.module.scss'
 import firebase from '../firebase/config'
 import "firebase/firestore"
 import { Context } from '../components/state/ContextProvider';
+import ShopItemOrder from '../components/cards/ShopItemOrder'
 
 const db = firebase.firestore();
 
@@ -27,31 +28,25 @@ export default function Driver() {
                     setOnCall(driver.data().on_call);
                 })
             })
+            db.collection("transactions")
+                .where("driver_id", "==", firebase.auth().currentUser.uid)
+                .where("transaction_state", "==", "accepted")
+                .onSnapshot(snapshot => {
+                    let temp = []
+                    snapshot.docs.forEach(trans => {
+                        temp.push(trans)
+                    })
+                    setCurrentTransaction(temp.length ? temp[0] : null)
+                })
 
-
-        }
-
-        /*
-        db.collection("transactions").where("delivery_notes", "==", "hello").get().then(snapshot => {
-            
-            
-        })
-        */
-       db.collection("transactions").where("driver_id", "==", firebase.auth().currentUser.uid).get().then(snapshot => {
-           let temp = []
-           snapshot.docs.forEach(trans => {
-               temp.push(trans.data())
-           })
-           setCurrentTransaction(temp[0])
-       })
-
-        db.collection("transactions").where("transaction_state", "==", "paid").onSnapshot(snapshot => {
-            let tempTrans = []
-            snapshot.docs.forEach(trans => {
-                tempTrans.push(trans)
+            db.collection("transactions").where("transaction_state", "==", "paid").onSnapshot(snapshot => {
+                let tempTrans = []
+                snapshot.docs.forEach(trans => {
+                    tempTrans.push(trans)
+                })
+                setTransactions(tempTrans)
             })
-            setTransactions(tempTrans)
-        })
+        }
 
     }, [authState.user])
 
@@ -66,32 +61,34 @@ export default function Driver() {
             transaction_state: "accepted"
         })
     }
-    
-    const finishTransaction = (e, tran) => {
-        e.preventDefault();
-        db.collection("transactions").doc(tran.id).update({
-            driver_id: firebase.auth().currentUser.uid,
+
+    const finishTransaction = (e) => {
+        console.log(currentTransaction.id)
+        db.collection("transactions").doc(currentTransaction.id).update({
             transaction_state: "finished"
+        }).catch(err => {
+            console.log("err", err)
         })
     }
 
-    const getTransaction = (tran) => {
+    const GetTransaction = ({ tran }) => {
+        console.log("trans", tran)
         return (
             <div className={styles.delivery_info_container}>
-            <div className={styles.address_container}>
-                <span>
-                    {tran.data().delivery_address.street1}
-                </span>
-                <span>
-                    {tran.data().delivery_address.street2}
-                </span>
-                <span>
-                    {tran.data().delivery_address.city}, {tran.data().delivery_address.state}
-                </span>
-                <div className={styles.item_quant}>
-                    {tran.data().items.length} items
+                <div className={styles.address_container}>
+                    <span>
+                        {tran.delivery_address.street1}
+                    </span>
+                    <span>
+                        {tran.delivery_address.street2}
+                    </span>
+                    <span>
+                        {tran.delivery_address.city}, {tran.delivery_address.state}
+                    </span>
+                    <div className={styles.item_quant}>
+                        {tran.items.length} items
+                    </div>
                 </div>
-            </div>
             </div>)
     }
 
@@ -106,45 +103,53 @@ export default function Driver() {
 
                 <div className={styles.main_container}>
                     {
+                        currentTransaction === null &&
                         <h1>
                             Available Orders
-                        </h1> 
-                        && currentTransaction === null
+                        </h1>
                     }
                     {
                         transactions.length && currentTransaction === null &&
                         transactions.map((tran, index) => {
                             return (
                                 <div className={styles.delivery_info_container}>
-                                    getTransaction(tran)
+                                    <GetTransaction tran={tran.data()} />
                                     <button onClick={e => acceptTransaction(e, tran)}>
-                                        Accept Transaction
+                                        Accept
                                     </button>
                                 </div>
                             )
                         })
                     }
                     {
+                        currentTransaction &&
                         <h1>
                             Current Order
-                        </h1> 
-                        && currentTransaction != null
+                        </h1>
+
                     }
                     {
-                        currentTransaction != null &&
-                        currentTransaction.map((tran, index) => {
-                            return (
-                                <div className={styles.delivery_info_container}>
-                                    getTransaction(tran)
-                                    <button onClick={e => finishTransaction(e, tran)}>
-                                        Finish Transaction
-                                    </button>
-                                </div>
-                            )
-                        })
+                        currentTransaction &&
+                        <div>
+                            {
+                                currentTransaction.data().items.map((item, index) => {
+                                    return <ShopItemOrder item={item} index={index} />
+                                })
+                            }
+                            <div className={styles.delivery_info_container}>
+                                <GetTransaction tran={currentTransaction.data()} />
+                                <button onClick={finishTransaction}>
+                                    Finish
+                                </button>
+                            </div>
+                        </div>
+                    }
+                    {
+                        transactions.length == 0 &&
+                        currentTransaction === null &&
+                        <h1>No available Orders</h1>
                     }
                 </div>
-
 
             </div>
 

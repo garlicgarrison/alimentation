@@ -26,7 +26,7 @@ export default function Store() {
     const [currentItem, setCurrentItem] = useState(null)
     const [currentItemImages, setCurrentItemImages] = useState([])
     const [imageIndex, setIndex] = useState(0)
-    const [quant, setQuant] = useState<number>(0)
+    const [quant, setQuant] = useState<number>(1)
 
     const storage = firebase.storage();
 
@@ -78,7 +78,7 @@ export default function Store() {
         setCurrentItem(null)
         setCurrentItemImages([])
         setIndex(0)
-        setQuant(0)
+        setQuant(1)
     }
 
     const decrementIndex = () => {
@@ -89,8 +89,6 @@ export default function Store() {
         }
     }
     const incrementIndex = () => {
-        
-        
         if (imageIndex !== currentItemImages.length - 1) {
             setIndex(imageIndex + 1)
         }
@@ -101,7 +99,7 @@ export default function Store() {
     }
 
     const handleAddCart = async (e) => {
-        
+        console.log("current", currentItem)
         if (!firebase.auth().currentUser)
         {
             router.push("/login")

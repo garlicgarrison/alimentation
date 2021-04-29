@@ -7,12 +7,14 @@ import Addresses from '../components/checkout/Addresses';
 import Payment from '../components/checkout/Payment';
 import ReviewItems from '../components/checkout/ReviewItems';
 import { Context } from '../components/state/ContextProvider';
+import { useRouter } from 'next/router'
 
 const db = firebase.firestore();
 
 export default function Checkout() {
     const { authState, setauthState } = useContext(Context)
     const [shopItems, setShopItems] = useState(null)
+    const router = useRouter()
 
     useEffect(() => {
         if (authState.user) {
@@ -46,6 +48,8 @@ export default function Checkout() {
                 body: JSON.stringify(body)
             }
         )
+        
+        router.push("/orders")
     }
 
     return (
