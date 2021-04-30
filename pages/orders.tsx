@@ -9,25 +9,35 @@ import styles from '../styles/Orders.module.scss'
 const db = firebase.firestore();
 export default function Orders() {
     const [orders, setOrders] = useState(null);
+    const [rating, setRating] = useState(null)
     const {authState, setAuthState} = useContext(Context)
     useEffect(() => {
         if (firebase.auth().currentUser)
         {
-            db.collection("transactions").where("customer_id", "==", firebase.auth().currentUser.uid).orderBy("payment_time", "asc").get().then(snapshot => {
+            db.collection("transactions").where("customer_id", "==", firebase.auth().currentUser.uid).get().then(snapshot => {
                 let temp = []
                 snapshot.docs.forEach(tran => {
                     temp.push(tran)
                 })
+                temp.sort((x, y) => new Date(y.data().payment_time).getTime() - new Date(x.data().payment_time).getTime())
                 setOrders(temp)
             })
         }
     }, [authState.user])
 
+
     const handleRating = (e, order) => {
         const name = e.target.name
-            db.collection("transactions").doc(order.id).update({
-                rating: name === "up" ? "liked" : "disliked"
-            })
+        var newRating;
+        if (rating != null && rating == name) {
+            newRating = null
+        } else {
+            newRating = name === "liked" ? "liked" : "disliked"
+        }
+        db.collection("transactions").doc(order.id).update({
+            rating: newRating
+        })
+        console.log(rating)
     }
 
     return (
@@ -61,19 +71,19 @@ export default function Orders() {
                                 {
                                     order.data().transaction_state === "finished" &&
                                     <div className = {styles.rating_container}>
-                                        <button 
+                                        <button id = "liked"
                                         className = {styles.like} 
                                         style={{backgroundColor: order.data().rating === "liked" ? "#8CB401" : "white"}}
                                         onClick = {e => handleRating(e, order)}
-                                        name="up"
+                                        name="liked"
                                         >
                                             👍 
                                         </button>
-                                        <button 
+                                        <button id = "disliked"
                                         className = {styles.dislike} 
                                         style = {{backgroundColor: order.data().rating === "disliked" ? "#E9692C" : "white"}}
                                         onClick = {e => handleRating(e, order)}
-                                        name="down"
+                                        name="disliked"
                                         >
                                             👎 
                                         </button>

@@ -137,13 +137,7 @@ export default function Navbar() {
                                         </Link>
                                     </li>
                                 }
-                                <li>
-                                    <Link href={{ pathname: '/orders' }}>
-                                        <a style={{color: "#5F890D"}}>
-                                            My Orders
-                                        </a>
-                                    </Link>
-                                </li>
+                               
                                 <li>
                                     <div className={styles.down_arrow_container} onClick={handleDropdown}>
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
@@ -255,6 +249,14 @@ const DropDown = ({ removeDropdown }) => {
                     </Link>
                 </li>
 
+                <br />
+
+                <li>
+                    <Link href={{ pathname: '/orders' }}>
+                        <a>My Orders</a>
+                    </Link>
+                </li>
+                
                 <br />
 
                 <li>
