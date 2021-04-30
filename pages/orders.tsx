@@ -13,7 +13,7 @@ export default function Orders() {
     useEffect(() => {
         if (firebase.auth().currentUser)
         {
-            db.collection("transactions").where("customer_id", "==", firebase.auth().currentUser.uid).orderBy("payment_time", "asc").onSnapshot(snapshot => {
+            db.collection("transactions").where("customer_id", "==", firebase.auth().currentUser.uid).orderBy("payment_time", "asc").get().then(snapshot => {
                 let temp = []
                 snapshot.docs.forEach(tran => {
                     temp.push(tran)
