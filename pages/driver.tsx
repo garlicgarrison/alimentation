@@ -14,18 +14,28 @@ export default function Driver() {
 
     const { authState, setauthState } = useContext(Context)
 
-    const [userDocRef, setUserDocRef] = useState(null)
-    const [onCall, setOnCall] = useState(false)
     const [currentTransaction, setCurrentTransaction] = useState(null)
     const [transactions, setTransactions] = useState([])
+    const [likes, setLikes] = useState(0)
+    const [dislikes, setDislikes] = useState(0)
 
     useEffect(() => {
 
         if (authState.user) {
-            db.collection("users").doc(firebase.auth().currentUser.uid).collection("driver").get().then(docRef => {
-                docRef.forEach(driver => {
-                    setUserDocRef(driver);
-                    setOnCall(driver.data().on_call);
+            db.collection("transactions")
+            .where("driver_id", "==", firebase.auth().currentUser.uid)
+            .where("transaction_state", "==", "finished")
+            .onSnapshot(snapshot => {
+                let temp = []
+                snapshot.docs.forEach(trans => {
+                    if (trans.data().rating === "liked")
+                    {
+                        setLikes(likes + 1)
+                    }
+                    else if (trans.data().rating === "disliked")
+                    {
+                        setDislikes(dislikes + 1)
+                    }
                 })
             })
             db.collection("transactions")
@@ -50,10 +60,6 @@ export default function Driver() {
 
     }, [authState.user])
 
-    const handleContinue = async (e) => {
-        setOnCall(true)
-    }
-
     const acceptTransaction = (e, tran) => {
         e.preventDefault();
         db.collection("transactions").doc(tran.id).update({
@@ -63,16 +69,15 @@ export default function Driver() {
     }
 
     const finishTransaction = (e) => {
-        console.log(currentTransaction.id)
         db.collection("transactions").doc(currentTransaction.id).update({
             transaction_state: "finished"
         }).catch(err => {
             console.log("err", err)
         })
     }
+    
 
     const GetTransaction = ({ tran }) => {
-        console.log("trans", tran)
         return (
             <div className={styles.delivery_info_container}>
                 <div className={styles.address_container}>
@@ -100,6 +105,17 @@ export default function Driver() {
             </Head>
 
             <div className={styles.main}>
+
+                My Rating:
+                <div className = {styles.driver_rating_container}>
+                    <div className= {styles.rating_bar}>
+                        <div 
+                        className = {styles.like_bar} 
+                        style = {{width: likes + dislikes === 0 ? "50%" : `${100*(likes/(likes+dislikes))}%`}}>
+
+                        </div>
+                    </div>
+                </div>
 
                 <div className={styles.main_container}>
                     {
@@ -147,7 +163,7 @@ export default function Driver() {
                     {
                         transactions.length == 0 &&
                         currentTransaction === null &&
-                        <h1>No available Orders</h1>
+                        <h3>No available Orders</h3>
                     }
                 </div>
 

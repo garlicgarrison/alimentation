@@ -15,6 +15,7 @@ export default function Checkout() {
     const { authState, setauthState } = useContext(Context)
     const [shopItems, setShopItems] = useState(null)
     const router = useRouter()
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         if (authState.user) {
@@ -41,6 +42,7 @@ export default function Checkout() {
                 customer_id: firebase.auth().currentUser.uid
             }
         }
+        setLoading(true)
         await fetch("https://us-central1-alimentation-851c0.cloudfunctions.net/createTransaction",
             {
                 method: "POST",
@@ -48,7 +50,6 @@ export default function Checkout() {
                 body: JSON.stringify(body)
             }
         )
-        
         router.push("/orders")
     }
 
@@ -77,8 +78,15 @@ export default function Checkout() {
                     </div>
                 </div>
                 <div className = {styles.select_driver_container}>
-                    <button className = {styles.order_button} onClick={handleCheckout}>
-                        Order
+                    <button className = {styles.order_button} onClick={handleCheckout} disabled={loading}>
+                        {
+                            loading &&
+                            "Processing..."
+                        }
+                        {
+                            !loading && 
+                            "Order"
+                        }
                     </button>
                 </div>
             </div>
