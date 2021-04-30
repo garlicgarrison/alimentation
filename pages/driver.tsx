@@ -23,21 +23,23 @@ export default function Driver() {
 
         if (authState.user) {
             db.collection("transactions")
-            .where("driver_id", "==", firebase.auth().currentUser.uid)
-            .where("transaction_state", "==", "finished")
-            .onSnapshot(snapshot => {
-                let temp = []
-                snapshot.docs.forEach(trans => {
-                    if (trans.data().rating === "liked")
-                    {
-                        setLikes(likes + 1)
-                    }
-                    else if (trans.data().rating === "disliked")
-                    {
-                        setDislikes(dislikes + 1)
-                    }
+                .where("driver_id", "==", firebase.auth().currentUser.uid)
+                .where("transaction_state", "==", "finished")
+                .onSnapshot(snapshot => {
+                    let temp = []
+                    snapshot.docs.forEach(trans => {
+                        if (trans.data().rating === "liked") {
+                            setLikes(currentLikes => {
+                                return currentLikes + 1
+                            })
+                        }
+                        else if (trans.data().rating === "disliked") {
+                            setDislikes(currentDislikes => {
+                                return dislikes + 1
+                            })
+                        }
+                    })
                 })
-            })
             db.collection("transactions")
                 .where("driver_id", "==", firebase.auth().currentUser.uid)
                 .where("transaction_state", "==", "accepted")
@@ -75,7 +77,7 @@ export default function Driver() {
             console.log("err", err)
         })
     }
-    
+
 
     const GetTransaction = ({ tran }) => {
         return (
@@ -107,14 +109,16 @@ export default function Driver() {
             <div className={styles.main}>
 
                 My Rating:
-                <div className = {styles.driver_rating_container}>
-                    <div className= {styles.rating_bar}>
-                        <div 
-                        className = {styles.like_bar} 
-                        style = {{width: likes + dislikes === 0 ? "50%" : `${100*(likes/(likes+dislikes))}%`}}>
+                <div className={styles.driver_rating_container}>
+                    <span>{likes} 👍</span>
+                    <div className={styles.rating_bar}>
+                        <div
+                            className={styles.like_bar}
+                            style={{ width: likes + dislikes === 0 ? "50%" : `${100 * (likes / (likes + dislikes))}%` }}>
 
                         </div>
                     </div>
+                    <span>{dislikes} 👎</span>
                 </div>
 
                 <div className={styles.main_container}>

@@ -9,13 +9,14 @@ import styles from '../styles/Orders.module.scss'
 const db = firebase.firestore();
 export default function Orders() {
     const [orders, setOrders] = useState(null);
-    const [rating, setRating] = useState(null)
     const {authState, setAuthState} = useContext(Context)
     useEffect(() => {
         if (firebase.auth().currentUser)
         {
-            db.collection("transactions").where("customer_id", "==", firebase.auth().currentUser.uid).get().then(snapshot => {
+            console.log("hello")
+            db.collection("transactions").where("customer_id", "==", firebase.auth().currentUser.uid).onSnapshot(snapshot => {
                 let temp = []
+                console.log(snapshot.docs)
                 snapshot.docs.forEach(tran => {
                     temp.push(tran)
                 })
@@ -29,7 +30,7 @@ export default function Orders() {
     const handleRating = (e, order) => {
         const name = e.target.name
         var newRating;
-        if (rating != null && rating == name) {
+        if (order.data().rating !== null ) {
             newRating = null
         } else {
             newRating = name === "liked" ? "liked" : "disliked"
@@ -37,7 +38,6 @@ export default function Orders() {
         db.collection("transactions").doc(order.id).update({
             rating: newRating
         })
-        console.log(rating)
     }
 
     return (
