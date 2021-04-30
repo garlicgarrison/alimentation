@@ -30,7 +30,7 @@ export default function Orders() {
     const handleRating = (e, order) => {
         const name = e.target.name
         var newRating;
-        if (order.data().rating !== null ) {
+        if (order.data().rating !== null && name === order.data().rating ) {
             newRating = null
         } else {
             newRating = name === "liked" ? "liked" : "disliked"

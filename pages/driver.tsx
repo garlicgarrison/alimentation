@@ -35,7 +35,7 @@ export default function Driver() {
                         }
                         else if (trans.data().rating === "disliked") {
                             setDislikes(currentDislikes => {
-                                return dislikes + 1
+                                return currentDislikes + 1
                             })
                         }
                     })
