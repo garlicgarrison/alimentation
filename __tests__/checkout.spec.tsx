@@ -22,4 +22,9 @@ describe("Pages", () => {
         wrapper.find(".change_button").at(0).simulate('click');
         expect(wrapper.find(".address_section_edit input")).toHaveLength(5)
     })
+
+    it("allow edit payment when clicked change", () =>{
+        wrapper.find(".change_button").at(1).simulate('click');
+        expect(wrapper.find(".payment_section_edit input")).toHaveLength(4)
+    })
 })
