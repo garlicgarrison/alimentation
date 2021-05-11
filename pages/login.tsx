@@ -16,18 +16,18 @@ export default function Login() {
 
   const formRef = useRef(null);
   const [loginError, setLoginError] = useState<any>(null);
-  const [usernameError, setUsernameError] = useState(null);
-  const [passwordError, setPasswordError] = useState(null);
+  const [usernameError, setUsernameError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   const formHandler = (event) => {
     const { name, value } = event.target;
     
     switch (name) {
       case "username":
-        setUsernameError(re.test(value) ? "" : "Email is not valid");
+        setUsernameError(re.test(value) ? null : "Email is not valid");
         break;
       case "password":
-        setPasswordError(value.length < 6 ? "Password must be at least 6 characters" : "");
+        setPasswordError(value.length < 6 ? "Password must be at least 6 characters" : null);
         break;
       default:
         break;
@@ -35,7 +35,7 @@ export default function Login() {
   };
 
   const handleEmailLogin = async (e: React.MouseEvent<HTMLElement>) => {
-    e.preventDefault();
+    //e.preventDefault();
     let email = formRef.current.username.value
     let pw = formRef.current.password.value
     
@@ -107,7 +107,7 @@ const handleGoogleLogin = async (e) => {
               <input className={styles.field_input} placeholder="E-mail" name = "username" onChange={formHandler}/>
               <span className = {styles.error_message}>{passwordError}</span>
               <input className={styles.field_input} placeholder="Password" name = "password" type = "password" onChange={formHandler}/>
-              <button className={styles.login_button} onClick={handleEmailLogin} disabled={usernameError || passwordError}>
+              <button className={styles.login_button} onClick={handleEmailLogin} disabled={usernameError !== null || passwordError !== null}>
                 <p>Log in</p>
               </button>
             </form>

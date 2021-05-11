@@ -18,6 +18,7 @@ export default function Profile() {
 
   const { authState, setauthState } = useContext(Context)
   const db = firebase.firestore();
+  console.log(authState)
 
   const [userDocRef, setUserDocRef] = useState(null)
   const [editOn, setEditOn] = useState(false)
