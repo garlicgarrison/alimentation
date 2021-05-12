@@ -79,7 +79,7 @@ export default function Navbar() {
                     {/*left elements */}
                     <div className={styles.left_elements}>
                         <h1 className={styles.header}>
-
+                            <img src="https://cdn.discordapp.com/attachments/804082580525154351/821441798529482752/mango2.png" className={styles.website_logo}/>
                             <Link href={{ pathname: "/" }}>
                                 Alimentation
                             </Link>

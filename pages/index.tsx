@@ -9,11 +9,11 @@ import Layout from '../components/layouts/Layout'
 
 export default function Home() {
 
-  const [coordinates, setCoordinates] = useState<Object>({latitude: null, longitude: null});
+  const [coordinates, setCoordinates] = useState<Object>({ latitude: null, longitude: null });
   const [locationError, setLocationError] = useState(null)
 
   useEffect(() => {
-    
+
   }, [])
 
   const locationOptions = {
@@ -23,19 +23,19 @@ export default function Home() {
   }
 
   const successCallback = async (position) => {
-    
+
     setLocationError(null)
     setCoordinates(position.coords)
     let zipRes = await fetch(`http://ws.geonames.org/findNearbyPostalCodesJSON?formatted=true&lat=36&lng=-79.08`)
   }
 
   const errorCallback = error => {
-    
+
     setLocationError(error)
   }
 
   const getLocation = async e => {
-    
+
     await navigator.geolocation.getCurrentPosition(successCallback, errorCallback, locationOptions)
   }
 
@@ -48,12 +48,18 @@ export default function Home() {
 
       <main className={styles.main}>
         <div className={styles.zip_input_container}>
-          <h1>Alimentation</h1>
+          <div className={styles.site_title}>
+            <img src="https://cdn.discordapp.com/attachments/804082580525154351/821441798529482752/mango2.png" className={styles.website_logo} />
+            <div>
+              <span>Find your grocery at</span>
+              <h1>Alimentation</h1>
+            </div>
+          </div>
 
-          <div className = {styles.location_section}>
+          <div className={styles.location_section}>
             {
               locationError &&
-            <span className = {styles.location_error}>{locationError.message}</span>
+              <span className={styles.location_error}>{locationError.message}</span>
             }
 
             <div className={styles.input_area}>
@@ -66,7 +72,7 @@ export default function Home() {
               </button>
             </div>
             <Link href={{ pathname: '/stores' }}>
-              <a className = {styles.check_all_stores}>Check all stores</a>
+              <a className={styles.check_all_stores}>Check all stores</a>
             </Link>
           </div>
 
