@@ -24,6 +24,7 @@ export const emailLogin = (email: string, password: string) => {
     return firebase.auth().signInWithEmailAndPassword(email, password).then(user => {
         return user;
     }).catch(error => {
+        console.log(error)
         return error;
     })
 }

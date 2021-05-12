@@ -16,6 +16,8 @@ export default function Stores()
             snapshot.forEach(doc => {
                 tempStore = [...tempStore, doc]
             })
+            console.log("slava ukraini")
+            console.log(tempStore)
             setStores(tempStore)
         })
     }, [])

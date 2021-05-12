@@ -5,7 +5,7 @@ import firebase from '../firebase/config'
 import "firebase/firestore"
 import Link  from 'next/link';
 import Layout from '../components/layouts/Layout'
-import Router from 'next/router'
+import {useRouter} from 'next/router'
 
 import { emailLogin, facebookAuth, googleAuth } from '../service/auth/auth'
 
@@ -18,6 +18,7 @@ export default function Login() {
   const [loginError, setLoginError] = useState<any>(null);
   const [usernameError, setUsernameError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const router = useRouter()
 
   const formHandler = (event) => {
     const { name, value } = event.target;
@@ -35,41 +36,22 @@ export default function Login() {
   };
 
   const handleEmailLogin = async (e: React.MouseEvent<HTMLElement>) => {
-    //e.preventDefault();
+    e.preventDefault();
     let email = formRef.current.username.value
     let pw = formRef.current.password.value
     
     let res = await emailLogin(email, pw);
-    
+    console.log(res)
     if (res.user)
     {
         
         //What to do after login
-        Router.push('/stores')
+        router.push('/stores')
     }
     else if (res.message)
     {
-      
       setLoginError(res.message)
     }
-}
-
-
-const handleFacebookLogin = async (e : React.MouseEvent<HTMLElement>) => {
-  e.preventDefault();
-  let res = await facebookAuth();
-  
-  if (res.user)
-  {
-      
-      //What to do after login
-      Router.push('/stores')
-  }
-  else if (res.message)
-  {
-    
-    setLoginError(res.message)
-  }
 }
 
 
@@ -81,7 +63,7 @@ const handleGoogleLogin = async (e) => {
     {
         
         //What to do after login
-        Router.push('/stores')
+        router.push('/stores')
     }
     else if (res.message)
     {
