@@ -1,6 +1,7 @@
 import React from 'react';
-import {shallow } from 'enzyme'
+import { shallow } from 'enzyme'
 import Login from '../pages/login'
+import { isLocalURL } from 'next/dist/next-server/lib/router/router';
 
 const emailTestCases = [
     {
@@ -83,6 +84,23 @@ describe('Pages', () => {
             })
         })
 
+        for (let i = 0; i <= emailTestCases.length; i++) {
+            it.todo("should disable the button when username or password invalid"), () => {
+                wrap.find("input").at(0).simulate('change', {
+                    target: {
+                        name: "username",
+                        value: emailTestCases[i].input
+                    }
+                });
+                wrap.find("input").at(1).simulate('change', {
+                    target: {
+                        name: "password",
+                        value: passwordTestCases[i].input
+                    }
+                });
+                expect(wrap.find('.login_button').prop('disabled')).toBe(!(emailTestCases[i].expected && passwordTestCases[i].expected))
+            }
 
+        }
     })
 })
