@@ -22,22 +22,17 @@ export default function Home() {
     maximumAge: 0
   }
 
-  const successCallback = async (position) => {
-
-    setLocationError(null)
-    setCoordinates(position.coords)
-    let zipRes = await fetch(`http://ws.geonames.org/findNearbyPostalCodesJSON?formatted=true&lat=36&lng=-79.08`)
-  }
-
-  const errorCallback = error => {
-
-    setLocationError(error)
-  }
+  
 
   const getLocation = async e => {
     console.log("config", process.env.GEO_KEY)
-    await navigator.geolocation.getCurrentPosition(position => {
-      console.log(position)
+    await navigator.geolocation.getCurrentPosition(async position => {
+      if (position && position.coords)
+      {
+        let res = 
+          await `https://maps.googleapis.com/maps/api/geocode/json?latlng=${position.coords.latitude},${position.coords.longitude}&key=${process.env.GEO_KEY}`
+        console.log(res)
+      }
     })
   }
 
