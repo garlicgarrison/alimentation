@@ -32,7 +32,9 @@ export default function Home() {
       {
         let res = 
           await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${position.coords.latitude},${position.coords.longitude}&key=${process.env.GEO_KEY}`)
+        console.log(res)
         let addressRes = await res.json();
+        console.log(addressRes)
         setAddress(addressRes.results.formatted_address)
       }
     })
