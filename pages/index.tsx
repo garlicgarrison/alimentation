@@ -35,8 +35,10 @@ export default function Home() {
   }
 
   const getLocation = async e => {
-
-    await navigator.geolocation.getCurrentPosition(successCallback, errorCallback, locationOptions)
+    console.log("config", process.env.GEO_KEY)
+    await navigator.geolocation.getCurrentPosition(position => {
+      console.log(position)
+    })
   }
 
   return (

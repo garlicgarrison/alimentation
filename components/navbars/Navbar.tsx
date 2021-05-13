@@ -127,17 +127,6 @@ export default function Navbar() {
                                         </a>
                                     </Link>
                                 </li>
-                                {
-                                    driver && 
-                                    <li>
-                                        <Link href={{pathname: '/driver'}}>
-                                            <a className = {styles.driver_link}>
-                                                Driver
-                                            </a>
-                                        </Link>
-                                    </li>
-                                }
-                               
                                 <li>
                                     <div className={styles.down_arrow_container} onClick={handleDropdown}>
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
@@ -149,6 +138,16 @@ export default function Navbar() {
                                         <DropDown removeDropdown={removeDropdownCallback} />
                                     }
                                 </li>
+                                {
+                                    driver && 
+                                    <li>
+                                        <Link href={{pathname: '/driver'}}>
+                                            <a className = {styles.driver_link}>
+                                                Driver
+                                            </a>
+                                        </Link>
+                                    </li>
+                                }
                                 <li>
                                     <button className={styles.shopping_cart} onClick = {e=>setShowCart(true)}>
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
