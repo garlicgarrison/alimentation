@@ -71,7 +71,7 @@ export default function Home() {
         }
         else if (comp.types.includes("route"))
         {
-          tempAdd.street1 += comp.short_name;
+          tempAdd.street1 += " " + comp.short_name;
         }
         else if (comp.types.includes("locality"))
         {
@@ -91,8 +91,8 @@ export default function Home() {
       })
       router.push("/stores")
     }
-    setLocationError("We could not find your address")
     setLoading(false);
+    router.push("/stores")
 
   }
 
@@ -138,7 +138,7 @@ export default function Home() {
                 </button>
               }
             </div>
-            <button onClick = {checkStores}>
+            <button onClick = {checkStores} className = {styles.go_to_stores}>
                 Look at stores
             </button>
               

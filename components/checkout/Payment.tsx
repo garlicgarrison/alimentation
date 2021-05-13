@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import firebase from '../../firebase/config'
 import styles from '../../styles/components/cards/checkout/Payment.module.scss'
 import { Context } from '../state/ContextProvider';
+import 'react-credit-cards/es/styles-compiled.css';
 import CreditCard from '../../custom_modules/Cards';
 
 const db = firebase.firestore();
