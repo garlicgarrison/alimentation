@@ -6,6 +6,7 @@ import "firebase/firestore"
 import Link from 'next/link';
 
 import Layout from '../components/layouts/Layout'
+import { useRouter } from 'next/router'
 
 export default function Home() {
 
@@ -13,6 +14,7 @@ export default function Home() {
   const [locationError, setLocationError] = useState(null)
   const [address, setAddress] = useState("")
   const [loading, setLoading] = useState<boolean>(false)
+  const router = useRouter()
 
   useEffect(() => {
 
@@ -47,6 +49,53 @@ export default function Home() {
     })
   }
 
+  const checkStores = async e => {
+    e.preventDefault();
+    setLoading(true);
+    let urlEncodeAddy = encodeURIComponent(address).replace(/%20/g, "+")
+    let res = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${urlEncodeAddy}&key=${process.env.GEO_KEY}`)
+    let addressRes = await res.json();
+    if (addressRes.results.length && addressRes.results[0].formatted_address)
+    {
+      let tempAdd = {
+        street1:"",
+        street2: "",
+        city: "",
+        state: "",
+        zip: ""
+      }
+      addressRes.results[0].address_components.forEach(comp => {
+        if (comp.types.includes("street_number"))
+        {
+          tempAdd.street1 = comp.long_name;
+        }
+        else if (comp.types.includes("route"))
+        {
+          tempAdd.street1 += comp.short_name;
+        }
+        else if (comp.types.includes("locality"))
+        {
+          tempAdd.city = comp.short_name
+        }
+        else if (comp.types.includes("administrative_area_level_1"))
+        {
+          tempAdd.state = comp.short_name;
+        }
+        else if (comp.types.includes("postal_code"))
+        {
+          tempAdd.zip = comp.long_name
+        }
+      })
+      await firebase.firestore().collection('users').doc(firebase.auth().currentUser.uid).update({
+        main_address: tempAdd
+      })
+      router.push("/stores")
+    }
+    setLocationError("We could not find your address")
+    setLoading(false);
+
+  }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -59,7 +108,7 @@ export default function Home() {
           <div className={styles.site_title}>
             <img src="https://cdn.discordapp.com/attachments/804082580525154351/821441798529482752/mango2.png" className={styles.website_logo} />
             <div>
-              <span>Find your grocery at</span>
+              <span>Find your groceries at</span>
               <h1>Alimentation</h1>
             </div>
           </div>
@@ -89,9 +138,10 @@ export default function Home() {
                 </button>
               }
             </div>
-            <Link href={{ pathname: '/stores' }}>
-              <a className={styles.check_all_stores}>Check all stores</a>
-            </Link>
+            <button onClick = {checkStores}>
+                Look at stores
+            </button>
+              
           </div>
 
         </div>
