@@ -11,6 +11,7 @@ export default function Home() {
 
   const [coordinates, setCoordinates] = useState<Object>({ latitude: null, longitude: null });
   const [locationError, setLocationError] = useState(null)
+  const [address, setAddress] = useState("")
 
   useEffect(() => {
 
@@ -30,8 +31,9 @@ export default function Home() {
       if (position && position.coords)
       {
         let res = 
-          await `https://maps.googleapis.com/maps/api/geocode/json?latlng=${position.coords.latitude},${position.coords.longitude}&key=${process.env.GEO_KEY}`
-        console.log(res)
+          await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${position.coords.latitude},${position.coords.longitude}&key=${process.env.GEO_KEY}`)
+        let addressRes = await res.json();
+        setAddress(addressRes.results.formatted_address)
       }
     })
   }
@@ -60,7 +62,7 @@ export default function Home() {
             }
 
             <div className={styles.input_area}>
-              <input className={styles.address_input} placeholder="Address, City, or Zip Code" />
+              <input className={styles.address_input} placeholder="Address" value = {address}/>
               <button className={styles.nav_button} onClick={getLocation}>
                 <svg width="24px" height="24px" viewBox="0 0 24 24" aria-hidden="true" fill="#8CB401">
                   <path d="M.545 11.348l19.821-8.37a.5.5 0 0 1 .655.656l-8.369 19.82a.5.5 0 0 1-.952-.104l-1.688-9.282a.1.1 0 0 0-.08-.08L.65 12.3a.5.5 0 0 1-.105-.952z">
