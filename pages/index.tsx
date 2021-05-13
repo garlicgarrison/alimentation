@@ -35,7 +35,7 @@ export default function Home() {
         console.log(res)
         let addressRes = await res.json();
         console.log(addressRes)
-        setAddress(addressRes.results.formatted_address)
+        setAddress(addressRes.results[0].formatted_address)
       }
     })
   }
