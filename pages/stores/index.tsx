@@ -23,7 +23,7 @@ export default function Stores()
     }, [])
 
     return (
-        <main className = {styles.main_container}>
+        <div className = {styles.main_container}>
             <h2>Stores</h2>
             <div className = {styles.store_grids}>
                 {
@@ -32,7 +32,7 @@ export default function Stores()
                     })
                 }
             </div>
-        </main>
+        </div>
     )
 }
 
