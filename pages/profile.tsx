@@ -154,12 +154,7 @@ export default function Profile() {
           </Head>
 
           <main className={styles.main}>
-            {
-              !driver &&
-              <button className={styles.driver} onClick={createDriver}>
-                Become a driver
-              </button>
-            }
+
             <div className={styles.main_container}>
               <div className={styles.input_title}>
                 <h1>Profile</h1>
@@ -290,6 +285,7 @@ export default function Profile() {
                     Edit Profile
                 </button>
                 }
+
                 {
                   editOn &&
                   <div>
@@ -300,6 +296,13 @@ export default function Profile() {
                       Save
                   </button>
                   </div>
+                }
+
+                {
+                  !driver &&
+                  <button className={styles.driver} onClick={createDriver}>
+                    Become a driver
+                  </button>
                 }
               </div>
 

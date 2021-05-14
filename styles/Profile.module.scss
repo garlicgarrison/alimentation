@@ -188,11 +188,16 @@
 }
 
 .driver {
-  padding: 10px;
-  color: white;
+  width: 160px;
+  margin: 0px 20px;
   background-color: $light-orange;
-  border: none;
+  font-family: Helvetica;
+  font-weight: 500;
   outline: none;
-  border-radius: 10px;
+  border: none;
+  border-radius: 30px;
+  padding: 15px;
   cursor: pointer;
+  color: white;
+
 }

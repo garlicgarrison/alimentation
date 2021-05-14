@@ -132,17 +132,22 @@ export default function Driver() {
                         </h1>
                     }
                     {
-                        transactions.length && currentTransaction === null &&
-                        transactions.map((tran, index) => {
-                            return (
-                                <div className={styles.delivery_info_container}>
-                                    <GetTransaction tran={tran.data()} />
-                                    <button onClick={e => acceptTransaction(e, tran)}>
-                                        Accept
-                                    </button>
-                                </div>
-                            )
-                        })
+                        (transactions.length > 0 && currentTransaction === null) &&
+                        <div>
+                            {
+                            transactions.map((tran, index) => {
+                                return (
+                                    <div className={styles.delivery_info_container}>
+                                        <GetTransaction tran={tran.data()} />
+                                        <button onClick={e => acceptTransaction(e, tran)}>
+                                            Accept
+                                        </button>
+                                    </div>
+                                )
+                            })
+                            }
+                        </div>
+                        
                     }
                     {
                         currentTransaction &&

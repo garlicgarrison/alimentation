@@ -10,6 +10,7 @@ function MyApp({ Component, pageProps }) {
     <>
     <Head>
       <title>Alimentation</title>
+      <link rel="icon" href="/favicon.png" />
     </Head>
     
     <ContextProvider>
