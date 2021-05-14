@@ -22,6 +22,8 @@ export default function Driver() {
     useEffect(() => {
 
         if (authState.user) {
+            setLikes(0);
+            setDislikes(0);
             db.collection("transactions")
                 .where("driver_id", "==", firebase.auth().currentUser.uid)
                 .where("transaction_state", "==", "finished")
