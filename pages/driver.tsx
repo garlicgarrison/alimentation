@@ -108,20 +108,21 @@ export default function Driver() {
 
             <div className={styles.main}>
 
-                My Rating:
-                <div className={styles.driver_rating_container}>
-                    <span>{likes} 👍</span>
-                    <div className={styles.rating_bar}>
-                        <div
-                            className={styles.like_bar}
-                            style={{ width: likes + dislikes === 0 ? "50%" : `${100 * (likes / (likes + dislikes))}%` }}>
 
-                        </div>
-                    </div>
-                    <span>{dislikes} 👎</span>
-                </div>
 
                 <div className={styles.main_container}>
+                    <h1>My Rating</h1>
+                    <div className={styles.driver_rating_container}>
+                        <span>{likes} 👍</span>
+                        <div className={styles.rating_bar}>
+                            <div
+                                className={styles.like_bar}
+                                style={{ width: likes + dislikes === 0 ? "50%" : `${100 * (likes / (likes + dislikes))}%` }}>
+
+                            </div>
+                        </div>
+                        <span>{dislikes} 👎</span>
+                    </div>
                     {
                         currentTransaction === null &&
                         <h1>
