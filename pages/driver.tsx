@@ -113,18 +113,21 @@ export default function Driver() {
 
 
                 <div className={styles.main_container}>
-                    <h1>My Rating</h1>
-                    <div className={styles.driver_rating_container}>
-                        <span>{likes} 👍</span>
-                        <div className={styles.rating_bar}>
-                            <div
-                                className={styles.like_bar}
-                                style={{ width: likes + dislikes === 0 ? "50%" : `${100 * (likes / (likes + dislikes))}%` }}>
+                    <div className={styles.rating_container}>
+                        <h1>My Rating</h1>
+                        <div className={styles.driver_rating_container}>
+                            <span>{likes} 👍</span>
+                            <div className={styles.rating_bar}>
+                                <div
+                                    className={styles.like_bar}
+                                    style={{ width: likes + dislikes === 0 ? "50%" : `${100 * (likes / (likes + dislikes))}%` }}>
 
+                                </div>
                             </div>
+                            <span>{dislikes} 👎</span>
                         </div>
-                        <span>{dislikes} 👎</span>
                     </div>
+
                     {
                         currentTransaction === null &&
                         <h1>
@@ -135,19 +138,19 @@ export default function Driver() {
                         (transactions.length > 0 && currentTransaction === null) &&
                         <div>
                             {
-                            transactions.map((tran, index) => {
-                                return (
-                                    <div className={styles.delivery_info_container}>
-                                        <GetTransaction tran={tran.data()} />
-                                        <button onClick={e => acceptTransaction(e, tran)}>
-                                            Accept
+                                transactions.map((tran, index) => {
+                                    return (
+                                        <div className={styles.delivery_info_container}>
+                                            <GetTransaction tran={tran.data()} />
+                                            <button onClick={e => acceptTransaction(e, tran)}>
+                                                Accept
                                         </button>
-                                    </div>
-                                )
-                            })
+                                        </div>
+                                    )
+                                })
                             }
                         </div>
-                        
+
                     }
                     {
                         currentTransaction &&
