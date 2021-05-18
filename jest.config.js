@@ -12,6 +12,7 @@ module.exports = {
     transformIgnorePatterns: [
       '/node_modules/',
       '^.+\\.module\\.(css|sass|scss)$',
+      '^.*\.(css|sass|scss|rccs)$',
     ],
     moduleNameMapper: {
       '^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy',
