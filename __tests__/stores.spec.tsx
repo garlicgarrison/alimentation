@@ -12,7 +12,7 @@ describe("Store pages", () => {
     //     shallow(<Stores />)
     // })
  
-    let wrap;
+    let wrap = shallow(<Stores />);
     let stores;
 
     it("should render storecard components", async () => {

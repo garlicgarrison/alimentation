@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "jest"
+    "test": "jest",
+    "test:coverage": "test --coverage"
   },
   "dependencies": {
     "babel-register": "^6.26.0",

@@ -19,12 +19,14 @@ export default function Checkout() {
 
     useEffect(() => {
         if (authState.user) {
+            console.log(db.collection("users").doc(firebase.auth().currentUser.uid).collection("customer"))
             db.collection("users").doc(firebase.auth().currentUser.uid).collection("customer").get().then(snapshot => {
                 snapshot.forEach(doc => {
                     doc.ref.collection("shopping_cart").get().then(shopitemSnap => {
                         shopitemSnap.forEach(itemsDoc => {
                             itemsDoc.ref.onSnapshot(itemsDocSnap => {
                                 setShopItems(itemsDocSnap)
+                                console.log(itemsDoc)
                             })
                         })
                     })

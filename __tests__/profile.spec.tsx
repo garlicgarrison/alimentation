@@ -1,6 +1,8 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme'
 import Profile from '../pages/profile'
+//import { mockProfileFile } from '../__mocks__/profile'
+//jest.mock('../pages/profile')
 
 
 describe("Pages", ()=>{
@@ -16,10 +18,11 @@ describe("Pages", ()=>{
         React.useContext = realUseContext;
     });
 
+
     const wrap = shallow(<Profile />)
     it("should allow edit personal info when edit button is clicked", () =>{
-        console.log(wrap.find("button"))
-        wrap.find('button').at(0).simulate('click');
+        console.log(wrap.find(".submit_button"))
+        wrap.find('.submit_button').at(0).simulate('click');
         expect(wrap.find(".section_info div input")).toHaveLength(9)
     })
 })
