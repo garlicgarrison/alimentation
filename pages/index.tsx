@@ -16,9 +16,6 @@ export default function Home() {
   const [loading, setLoading] = useState<boolean>(false)
   const router = useRouter()
 
-  useEffect(() => {
-
-  }, [])
 
   const locationOptions = {
     enableHighAccuracy: true,
