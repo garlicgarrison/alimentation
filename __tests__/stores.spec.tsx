@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Stores from '../pages/stores/index'
 import StoreCard from '../components/cards/StoreCard'
